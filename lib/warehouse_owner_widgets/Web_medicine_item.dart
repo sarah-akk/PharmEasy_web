@@ -40,6 +40,8 @@ class _WebMedicineItemState extends State<WebMedicineItem> {
           title: Text(
             medicine.commercialName,
             textAlign: TextAlign.center,
+
+
           ),
     leading:  IconButton(
     icon: Icon(
