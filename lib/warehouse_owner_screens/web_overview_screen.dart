@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:medicine_warehouse/models/medicine.dart';
-import 'package:provider/provider.dart';
-
-import '../models/medicines.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import '../warehouse_owner_widgets/Web_medicine_gride.dart';
 import '../warehouse_owner_widgets/add_medicine.dart';
 import '../warehouse_owner_widgets/web_drawer.dart';
@@ -139,25 +136,43 @@ class _MedicinesOverviewScreenState extends State<MedicinesOverviewScreen> {
               alignment: Alignment.bottomCenter,
                 height: 50.0, // Set the height as needed
                 width: 900.0, //
-                child: TextField(
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                    hintText: 'Search for medicines ...',
-                    border: OutlineInputBorder(  // Customize the border
-                      borderRadius: BorderRadius.circular(10.0),  // Adjust the border radius as needed
-                      borderSide: BorderSide(  // Adjust the border color, width, and style as needed
-                        color: Colors.greenAccent,
-                        width: 2.0,
+                child: TypeAheadFormField(
+                  textFieldConfiguration: TextFieldConfiguration(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      hintText: 'Search for medicines ...',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Colors.greenAccent,
+                          width: 2.0,
+                        ),
                       ),
                     ),
                   ),
-                  onChanged: (value) {
+                  suggestionsCallback: (pattern) async {
+                    return [
+                      'Neurological medications',
+                      'Heart medications',
+                      'Anti-inflammatories',
+                      'Food supplements',
+                      'Painkillers',
+                    ].where((category) => category.toLowerCase().contains(pattern.toLowerCase()));
+                  },
+                  itemBuilder: (context, suggestion) {
+                    return ListTile(
+                      title: Text(suggestion),
+                    );
+                  },
+                  onSuggestionSelected: (suggestion) {
+                    // Handle the selection of a suggestion
                     setState(() {
-                      _searchQuery = value;
+                      _searchQuery = suggestion;
                     });
                   },
                 ),
-              ),
+
+            ),
             Container(
               decoration: BoxDecoration(color: Colors.yellowAccent,borderRadius: BorderRadius.circular(20)),
               child: IconButton(

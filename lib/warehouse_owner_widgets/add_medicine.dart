@@ -108,7 +108,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [Colors.blueAccent, Colors.greenAccent],
+                colors: [Colors.lightBlueAccent, Colors.tealAccent],
               ),
             ),
           ),
