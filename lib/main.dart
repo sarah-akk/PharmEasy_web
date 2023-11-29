@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medicine_warehouse/pharmacistes_Screens/mobile_auth_Screen.dart';
 import 'package:medicine_warehouse/warehouse_owner_screens/web_overview_screen.dart';
 import 'package:medicine_warehouse/warehouse_owner_widgets/Web_Item_Details.dart';
 import 'package:medicine_warehouse/warehouse_owner_widgets/add_medicine.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
             MedicinesOverviewScreen.routeName : (ctx) => MedicinesOverviewScreen(),
             MedicineAddScreen.routeName:(ctx)=>MedicineAddScreen(),
             MedicineDetailsCard.routeName:(ctx)=>MedicineDetailsCard(),
+            MobileAuthScreen.routeName:(ctx)=>MobileAuthScreen(),
           },
 
 

@@ -22,17 +22,16 @@ class Sign extends StatelessWidget {
               children: [
                 SingleChildScrollView(
                   child: Container(
-                    height: height,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        SizedBox(height: 175,),
                         Container(
                           alignment: Alignment.center,
                           child: Column(
                             children: [
                               Text(
-
                                 'Welcome',
                                 style: TextStyle(
                                   color: Colors.lightBlueAccent,

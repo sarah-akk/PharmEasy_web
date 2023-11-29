@@ -5,7 +5,6 @@ import '../warehouse_owner_widgets/Web_medicine_gride.dart';
 import '../warehouse_owner_widgets/add_medicine.dart';
 import '../warehouse_owner_widgets/web_drawer.dart';
 
-
 enum FilterOptions {
   Favorites,
   All,
@@ -73,7 +72,11 @@ class _MedicinesOverviewScreenState extends State<MedicinesOverviewScreen> {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [Colors.lightBlueAccent, Colors.tealAccent],
+                colors: [
+
+
+
+                ],
               ),
             ),
 

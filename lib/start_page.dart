@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:medicine_warehouse/pharmacistes_Screens/mobile_auth_Screen.dart';
 import 'package:medicine_warehouse/warehouse_owner_screens/web_auth_screen.dart';
 
 class StartPage extends StatelessWidget{
@@ -53,7 +54,7 @@ class StartPage extends StatelessWidget{
 
                   ),
                   onPressed: () {
-                    // Add functionality for the second button
+                  Navigator.of(context).pushNamed(MobileAuthScreen.routeName);
 
                   },
                   child: Text('Pharmasist'),
