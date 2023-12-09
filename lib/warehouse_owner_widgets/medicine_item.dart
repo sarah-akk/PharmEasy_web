@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../models/Auth.dart';
 import '../models/medicine.dart';
-import 'Web_Item_Details.dart';
+import 'Item_Details.dart';
 
 
 class WebMedicineItem extends StatefulWidget {

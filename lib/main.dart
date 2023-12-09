@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:medicine_warehouse/pharmacistes_Screens/mobile_auth_Screen.dart';
-import 'package:medicine_warehouse/warehouse_owner_screens/web_overview_screen.dart';
-import 'package:medicine_warehouse/warehouse_owner_widgets/Web_Item_Details.dart';
+import 'package:medicine_warehouse/warehouse_owner_screens/Dashboard.dart';
+import 'package:medicine_warehouse/warehouse_owner_screens/home_page.dart';
+import 'package:medicine_warehouse/warehouse_owner_screens/products_screen.dart';
+import 'package:medicine_warehouse/warehouse_owner_widgets/Item_Details.dart';
 import 'package:medicine_warehouse/warehouse_owner_widgets/add_medicine.dart';
 import 'package:provider/provider.dart';
 import 'models/Auth.dart';
@@ -10,7 +11,7 @@ import 'start_page.dart';
 import 'warehouse_owner_screens/web_auth_screen.dart';
 
 void main() {
-
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
@@ -21,12 +22,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
 
-    return     MultiProvider(  providers: [
+    return
+      MultiProvider(
+          providers: [
     ChangeNotifierProvider(create: (_) => Auth()),ChangeNotifierProxyProvider<Auth,MedicinesList>(
         create: (_) => MedicinesList([]), // Create your Products instance here.
     update: (ctx, auth, previousProducts) => MedicinesList(
     previousProducts == null ? [] : previousProducts.medicines,
-    ),),],
+              ),
+            ),
+          ],
         child: MaterialApp(
           theme: ThemeData(
             primaryColor: Colors.blueAccent,
@@ -38,10 +43,11 @@ class MyApp extends StatelessWidget {
 
           routes: {
             WebAuthScreen.routeName: (ctx) => WebAuthScreen(),
-            MedicinesOverviewScreen.routeName : (ctx) => MedicinesOverviewScreen(),
+            HomePage.routeName : (ctx) => HomePage(),
+            ProductsScreen.routeName:(ctx)=>ProductsScreen(),
             MedicineAddScreen.routeName:(ctx)=>MedicineAddScreen(),
             MedicineDetailsCard.routeName:(ctx)=>MedicineDetailsCard(),
-            MobileAuthScreen.routeName:(ctx)=>MobileAuthScreen(),
+
           },
 
 

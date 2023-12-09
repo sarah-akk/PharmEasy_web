@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:medicine_warehouse/models/medicine.dart';
 import 'package:medicine_warehouse/models/medicines.dart';
-import 'package:medicine_warehouse/warehouse_owner_widgets/Web_medicine_gride.dart';
+import 'package:medicine_warehouse/warehouse_owner_widgets/medicine_gride.dart';
+import 'package:medicine_warehouse/warehouse_owner_widgets/page_header.dart';
+import 'package:medicine_warehouse/warehouse_owner_widgets/top_bar.dart';
 import 'package:provider/provider.dart';
-import '../warehouse_owner_screens/web_overview_screen.dart';
+import '../warehouse_owner_screens/products_screen.dart';
+import 'drawer.dart';
 class MedicineAddScreen extends StatefulWidget {
   static const routeName = '/MedicineAddScreen';
 
@@ -67,7 +70,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
             FloatingActionButton(
               child: Text('Okay'),
               onPressed: () {
-                Navigator.of(context).pushReplacementNamed(MedicinesOverviewScreen.routeName);
+                Navigator.of(context).pushReplacementNamed(ProductsScreen.routeName);
               },
             )
           ],
@@ -77,63 +80,42 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
     setState(() {
       _isloading = false;
     });
-    Navigator.of(context).pushReplacementNamed(MedicinesOverviewScreen.routeName);
+    Navigator.of(context).pushReplacementNamed(ProductsScreen.routeName);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(150.0), // Set your preferred height
-        child: AppBar(
-          title:  Stack(
-            children: <Widget>[
+      body: Row(
+            children: [
+            mydrawer(),  // Add the drawer widget here
+        Expanded(
+        child: Column(
+        children: [
+        TopBar(),  // Add the TopBar widget here
+    Expanded(
 
-              // Outline Text// Set the text color
-              Text('Add medicine',textAlign:TextAlign.end,style: TextStyle(
-                fontSize: 40,
-                foreground: Paint()
-                  ..style = PaintingStyle.stroke
-                  ..strokeWidth = 4
-                  ..color = Colors.black54,),
-              ),
-              Text('Add medicine', textAlign:TextAlign.end, style: TextStyle(
-                fontSize: 40,
-                color: Colors.white,
-              ),),],
-          ),
-          flexibleSpace: Container(
-            height: 200,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Colors.lightBlueAccent, Colors.tealAccent],
-              ),
-            ),
-          ),
-        ),
-      ),
-      body:  Stack(
+      child:  Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset("assets/images/amai4.png",
-            fit: BoxFit.cover,),
-    // Background Image
 
       Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[ SingleChildScrollView(
-          child: Container(
+        mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(height: 20,),
+            PageHeader(text: "Add medicine"),
+            SizedBox(height: 50,),
+            SingleChildScrollView(
+            child: Container(
             decoration: BoxDecoration(color: Colors.white70),
             padding: EdgeInsets.only(left: 100),
-width:600 ,
+            width:800 ,
             child: Form(
               key: _form,
               child: Column(
                 children: <Widget>[
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Scientific Name',labelStyle: TextStyle(fontSize: 18)),
+                    decoration: InputDecoration(labelText: 'Scientific Name',labelStyle: TextStyle(fontSize: 21)),
                     textInputAction: TextInputAction.next,
                     focusNode:Scientific_Name_Node,
                     onFieldSubmitted: (_) {
@@ -162,7 +144,7 @@ width:600 ,
                     },
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Commercial Name'),
+                    decoration: InputDecoration(labelText: 'Commercial Name',labelStyle: TextStyle(fontSize: 21)),
                     initialValue: _initValues['commercialName'].toString(),
                     textInputAction: TextInputAction.next,
                     focusNode: Commercial_Name_Node,
@@ -192,7 +174,7 @@ width:600 ,
                     },
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Category'),
+                    decoration: InputDecoration(labelText: 'Category',labelStyle: TextStyle(fontSize: 21)),
                     initialValue: _initValues['Category'].toString(),
                     textInputAction: TextInputAction.next,
                     focusNode: Category_Node,
@@ -222,7 +204,7 @@ width:600 ,
                     },
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Manufacturer'),
+                    decoration: InputDecoration(labelText: 'Manufacturer',labelStyle: TextStyle(fontSize: 21)),
                     initialValue: _initValues['manufacturer'].toString(),
                     textInputAction: TextInputAction.next,
                     focusNode: Manufacturer_Node,
@@ -254,7 +236,7 @@ width:600 ,
                   ),
                   TextFormField(
                     decoration:
-                    InputDecoration(labelText: 'Quantity Available'),
+                    InputDecoration(labelText: 'Quantity Available',labelStyle: TextStyle(fontSize: 21)),
                     initialValue: _initValues['quantityAvailable'].toString(),
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.number,
@@ -285,7 +267,7 @@ width:600 ,
                     },
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Expiry Date'),
+                    decoration: InputDecoration(labelText: 'Expiry Date',labelStyle: TextStyle(fontSize: 21)),
                     initialValue: _initValues['expiryDate'].toString(),
                     textInputAction: TextInputAction.next,
                     focusNode: Expiry_Date_Node,
@@ -315,7 +297,7 @@ width:600 ,
                     },
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Price Name'),
+                    decoration: InputDecoration(labelText: 'Price Name',labelStyle: TextStyle(fontSize: 21)),
                     initialValue: _initValues['price'].toString(),
                     keyboardType: TextInputType.number,
                     textInputAction: TextInputAction.next,
@@ -346,7 +328,7 @@ width:600 ,
                     },
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Img URL'),
+                    decoration: InputDecoration(labelText: 'Img URL',labelStyle: TextStyle(fontSize: 21)),
                     initialValue: _initValues['imageUrl'].toString(),
                     keyboardType: TextInputType.url,
                     focusNode: Img_Node,
@@ -376,7 +358,7 @@ width:600 ,
                       }
                     },
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 70),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
@@ -388,20 +370,22 @@ width:600 ,
 
                         },
 
-                        child: Text('Save'),
+                        child: Text('Save',style: TextStyle(fontSize: 20),),
                         style: ElevatedButton.styleFrom(
+                          fixedSize: Size(130, 40), // Set the width and height
                           primary: Colors.pink, // Set the background color
                           // You can also customize other properties like padding, elevation, etc.
                         ),
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).pushReplacementNamed(MedicinesOverviewScreen.routeName);
+                          Navigator.of(context).pushReplacementNamed(ProductsScreen.routeName);
 
                           // Add your logic for discarding changes or canceling
                         },
-                        child: Text('Cancel'),
+                        child: Text('Cancel',style: TextStyle(fontSize: 20),),
                         style: ElevatedButton.styleFrom(
+                          fixedSize: Size(130, 40), // Set the width and height
                           primary: Colors.yellow, // Set the background color
                           // You can also customize other properties like padding, elevation, etc.
                         ),
@@ -416,13 +400,13 @@ width:600 ,
         ),
       ],
       ),
-          Container(
-            padding:EdgeInsets.only(left: 1200),
-            child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                children:<Widget>[Image.asset("assets/images/Screenshot 2023-11-22 142150.png"),]),
-          ),
-    ],),
+
+    ],
+      ),
+      ),
+        ]),
+    ),
+    ]),
     );
   }
 }

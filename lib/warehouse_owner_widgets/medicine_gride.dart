@@ -4,7 +4,7 @@ import 'package:medicine_warehouse/models/medicines.dart';
 import 'package:meta/meta.dart';
 import 'package:provider/provider.dart';
 
-import 'Web_medicine_item.dart';
+import 'medicine_item.dart';
 
 class WebMedicineGride extends StatelessWidget{
 

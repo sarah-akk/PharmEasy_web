@@ -17,9 +17,14 @@ class WebAuthScreen extends StatelessWidget {
     // final transformConfig = Matrix4.rotationZ(-8 * pi / 180);
     // transformConfig.translate(-10.0);
     return Scaffold(
-      
+
       // resizeToAvoidBottomInset: false,
-      body:
+      body:Stack(
+        fit: StackFit.expand,
+        children: [
+        Image.asset("assets/images/blue-flow-purple-gray-wavy-260nw-2148489969.png",
+        fit: BoxFit.cover,),
+      // Background Image
       Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -40,8 +45,8 @@ class WebAuthScreen extends StatelessWidget {
           ],
       ),
     ],
-    ),)
-    ;
+    ),]
+    ,),);
   }
 }
 
@@ -97,52 +102,7 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
   }
 
   Future<void> _submit() async {
-    // if (!_formKey.currentState!.validate()) {
-    //   // Invalid!
-    //   return;
-    // }
-    // _formKey.currentState?.save();
-    // setState(() {
-    //   _isLoading = true;
-    // });
-    // try {
-    //   if (_authMode == AuthMode.Login) {
-    //     // Log user in
-    //     await Provider.of<Auth>(context, listen: false).login(
-    //       _authData['email']!,
-    //       _authData['password']!,
-    //     );
-    //   } else {
-    //     // Sign user up
-    //     await Provider.of<Auth>(context, listen: false).signUp(
-    //       _authData['email']!,
-    //       _authData['password']!,
-    //     );
-    //   }
-    // } on HttpException catch (error) {
-    //   var errorMessage = 'Authentication failed';
-    //   if (error.toString().contains('EMAIL_EXISTS')) {
-    //     errorMessage = 'This email address is already in use.';
-    //   } else if (error.toString().contains('INVALID_EMAIL')) {
-    //     errorMessage = 'This is not a valid email address';
-    //   } else if (error.toString().contains('WEAK_PASSWORD')) {
-    //     errorMessage = 'This password is too weak.';
-    //   } else if (error.toString().contains('EMAIL_NOT_FOUND')) {
-    //     errorMessage = 'Could not find a user with that email.';
-    //   } else if (error.toString().contains('INVALID_PASSWORD')) {
-    //     errorMessage = 'Invalid password.';
-    //   }
-    // } catch (error) {
-    //   const errorMessage =
-    //       'Could not authenticate you. Please try again later.';
-    //   print(error.toString());
-    //   _showErrorDialog(errorMessage);
-    // }
-    //
-    // setState(() {
-    //   _isLoading = false;
-    // });
-    Navigator.of(context).pushReplacementNamed('/MedicinesOverviewScreen');
+    Navigator.of(context).pushReplacementNamed('/HomePageDesktop');
   }
 
   void _switchAuthMode() {
@@ -180,7 +140,7 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
             child: Column(
               children: <Widget>[
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'E-Mail'),
+                  decoration: InputDecoration(labelText: 'Phone Number'),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value!.isEmpty || !value.contains('@')) {
@@ -235,7 +195,7 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                         EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
                       ),
-                      backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
                       foregroundColor: MaterialStateProperty.all<Color>(
                         Theme.of(context).primaryTextTheme.button?.color ?? Colors.black,
                       ),
@@ -248,6 +208,7 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                       EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
+                      
                     ),
                     textStyle: MaterialStateProperty.all<TextStyle>(
                       TextStyle(color: Theme.of(context).primaryColor),
