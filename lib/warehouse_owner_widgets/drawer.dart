@@ -30,6 +30,7 @@ class mydrawer extends StatelessWidget {
            ),
          ),
          SizedBox(height: 20,),
+        // Image.asset("assets/images/Screenshot 2023-11-20 163429.png"),
          ListTile(
            leading: Icon(Icons.dashboard, color: Colors.white),
            title: Text('Dashboard', style: TextStyle(color: Colors.white,fontSize: 20)),
@@ -49,6 +50,13 @@ class mydrawer extends StatelessWidget {
            title: Text('Products', style: TextStyle(color: Colors.white,fontSize: 20)),
            onTap: () {
              Navigator.of(context).pushReplacementNamed('/ProductsScreen');
+           },
+         ),
+         ListTile(
+           leading: Icon(Icons.logout, color: Colors.white),
+           title: Text('log out', style: TextStyle(color: Colors.white,fontSize: 20)),
+           onTap: () {
+             Navigator.of(context).pushReplacementNamed('/StartPage');
            },
          ),
          // Add more options as needed

@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
           home:StartPage(),
 
           routes: {
+            StartPage.routeName:(ctx)=>StartPage(),
             WebAuthScreen.routeName: (ctx) => WebAuthScreen(),
             HomePage.routeName : (ctx) => HomePage(),
             ProductsScreen.routeName:(ctx)=>ProductsScreen(),

@@ -64,7 +64,8 @@ class HomePageDesktop extends StatelessWidget {
                               ),
                               child: Column(
                                 children: [
-                                  CustomText(text: 'Top Buyers', size: 30),
+                                  SizedBox(height: 10,),
+                                  Text('reports',style: TextStyle( fontSize: 35,color: Colors.deepPurple,fontWeight:FontWeight.w900)),
                                   // TopBuyerWidget(),
                                   // TopBuyerWidget(),
                                   // TopBuyerWidget(),

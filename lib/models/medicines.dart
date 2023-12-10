@@ -16,7 +16,7 @@ class MedicinesList with ChangeNotifier {
     //   quantityAvailable: 100,
     //   expiryDate: DateTime(2023, 12, 31),
     //   price: 10.99,
-    //   isFavorite: false,
+    //   isFavorite: false
     //   imageUrl: "",
     // ),
     // Medicine(

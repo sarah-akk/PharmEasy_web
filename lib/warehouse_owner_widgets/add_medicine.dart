@@ -88,13 +88,14 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
     return Scaffold(
       body: Row(
             children: [
+
             mydrawer(),  // Add the drawer widget here
         Expanded(
         child: Column(
         children: [
-        TopBar(),  // Add the TopBar widget here
-    Expanded(
+          TopBar(),  // Add the TopBar widget here
 
+          Expanded(
       child:  Stack(
         fit: StackFit.expand,
         children: [
@@ -107,9 +108,20 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
             SizedBox(height: 50,),
             SingleChildScrollView(
             child: Container(
-            decoration: BoxDecoration(color: Colors.white70),
-            padding: EdgeInsets.only(left: 100),
-            width:800 ,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    offset: Offset(0, 3),
+                    blurRadius: 16,
+                  ),
+                ],
+              ),
+            padding: EdgeInsets.only(left:
+            40),
+            width:900 ,
             child: Form(
               key: _form,
               child: Column(
@@ -392,13 +404,15 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                       ),
                     ],
                   ),
+
                 ],
               ),
 
             ),
           ),
         ),
-      ],
+
+          ],
       ),
 
     ],
@@ -406,6 +420,12 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
       ),
         ]),
     ),
+              Column(
+                children: [
+                  SizedBox(height: 400,),
+                  Image.asset("assets/images/Screenshot 2023-11-22 142150.png"),
+                ],
+              )
     ]),
     );
   }

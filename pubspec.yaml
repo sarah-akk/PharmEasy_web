@@ -68,11 +68,8 @@ flutter:
     - assets/images/185025829-3d-icon-with-pharmacy-3d-on-transparent-background-for-web-design-pharmacy-concept-3d-realistic.jpg
     - assets/images/Screenshot 2023-11-18 163907.png
     - assets/images/Screenshot 2023-11-20 163429.png
-    - assets/images/Screenshot 2023-11-22 142150.png
-    - assets/images/amai3.png
-    - assets/images/amai4.png
     - assets/images/cute-pink-blue-abstract-background-for-web-design-vector-22334520.jpg
-    - assets/images/blue-flow-purple-gray-wavy-260nw-2148489969.png
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

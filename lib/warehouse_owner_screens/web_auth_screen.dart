@@ -22,7 +22,7 @@ class WebAuthScreen extends StatelessWidget {
       body:Stack(
         fit: StackFit.expand,
         children: [
-        Image.asset("assets/images/blue-flow-purple-gray-wavy-260nw-2148489969.png",
+        Image.asset("assets/images/cute-pink-blue-abstract-background-for-web-design-vector-22334520.jpg",
         fit: BoxFit.cover,),
       // Background Image
       Column(
@@ -63,7 +63,7 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
   final GlobalKey<FormState> _formKey = GlobalKey();
   AuthMode _authMode = AuthMode.Login;
   Map<String, String> _authData = {
-    'email': '',
+    'Phone Number': '',
     'password': '',
   };
   var _isLoading = false;
@@ -143,13 +143,13 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
                   decoration: InputDecoration(labelText: 'Phone Number'),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
-                    if (value!.isEmpty || !value.contains('@')) {
-                      return 'Invalid email!';
+                    if (value!.isEmpty) {
+                      return 'Invalid Phone Number!';
                     }
                     return null;
                   },
                   onSaved: (value) {
-                    _authData['email'] = value!;
+                    _authData['Phone Number'] = value!;
                   },
                 ),
                 TextFormField(

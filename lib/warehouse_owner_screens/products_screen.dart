@@ -29,7 +29,42 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
     super.didChangeDependencies();
   }
+  PopupMenuItem<String> buildPopupMenuItem(String category) {
+    return PopupMenuItem<String>(
+      value: category,
+      child: Text(category),
+    );
+  }
 
+  PopupMenuItem<String> buildAllCategoriesMenuItem() {
+    return PopupMenuItem<String>(
+      value: 'All',
+      child: Text('All Categories'),
+    );
+  }
+
+  PopupMenuButton<String> buildCategoryFilterButton() {
+    return PopupMenuButton<String>(
+      icon: Icon(Icons.filter_list),
+      onSelected: (String selectedCategory) {
+        // Handle category selection
+        setState(() {
+          // Update your filtering logic here
+          _searchQuery = selectedCategory;
+        });
+      },
+      itemBuilder: (BuildContext context) {
+        return [
+          buildAllCategoriesMenuItem(),
+          buildPopupMenuItem('Neurological medications'),
+          buildPopupMenuItem('Heart medications'),
+          buildPopupMenuItem('Anti-inflammatories'),
+          buildPopupMenuItem('Food supplements'),
+          buildPopupMenuItem('Painkillers'),
+        ];
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +82,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                   Row(
                     children: <Widget>[
                       Container(
-                        padding: EdgeInsets.only(left: 200),
+                        padding: EdgeInsets.only(left: 100),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             primary: Colors.pinkAccent,
@@ -86,7 +121,17 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       ),
                       SizedBox(width: 20),
                       Container(
-                        color: Colors.white,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              offset: Offset(0, 3),
+                              blurRadius: 16,
+                            ),
+                          ],
+                        ),
                         alignment: Alignment.bottomCenter,
                         height: 50.0,
                         width: 900.0,
@@ -161,23 +206,47 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       ),
                     ],
                   ),
+
                   SizedBox(height: 30),
                   SingleChildScrollView(
                     child: Container(
                       padding: EdgeInsets.only(left: 30, top: 30),
                       width: 1300,
                       decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 0.5,
-                        ),
-                        color: Colors.white60,
-                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(0, 3),
+                            blurRadius: 16,
+                          ),
+                        ],
                       ),
+
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
+                          Row(
+                            children:<Widget> [
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                decoration: BoxDecoration(
+                                  color: Colors.lightBlueAccent,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Text(
+                                  'choose category : ',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              buildCategoryFilterButton(),
+                            ],
+                          ),
                           SizedBox(
                             height: 1500,
                             child: WebMedicineGride(),
