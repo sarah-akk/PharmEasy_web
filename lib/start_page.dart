@@ -12,57 +12,65 @@ class StartPage extends StatelessWidget{
     Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Stack(
-        fit: StackFit.expand,
+      body: Row(
         children: [
-        Image.asset("assets/images/cute-pink-blue-abstract-background-for-web-design-vector-22334520.jpg",
-        fit: BoxFit.cover,),
-      Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Welcome !',
-              style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold,color: Colors.pinkAccent),
-            ),
-            SizedBox(height: 30),
-
-            Container(
-            height: 300,width: 200,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.white),
-                borderRadius:BorderRadius.circular(50),
-              ),
-              child: Image.asset('assets/images/185025829-3d-icon-with-pharmacy-3d-on-transparent-background-for-web-design-pharmacy-concept-3d-realistic.jpg'
-             ,fit: BoxFit.contain,
-              ),
-            ),
-            SizedBox(height: 50),
-
-                ElevatedButton(
-                  style:ElevatedButton.styleFrom(
-                      primary: Colors.deepPurpleAccent,
-                      shadowColor: Colors.black54,
-                  fixedSize: Size(130, 40),
-                    // Set the width and height
-                  // You can also customize other properties like padding, elevation, etc
+          // Left side with text
+          Expanded(
+            flex: 2,
+            child: Container(
+              padding: EdgeInsets.all(32.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Welcome to the Medical Warehouse',
+                    style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepPurpleAccent,
+                    ),
                   ),
-                  onPressed: () {
-                    // Add functionality for the first button
-                    Navigator.of(context).pushNamed(WebAuthScreen.routeName);
-                  },
-                  child: Text('Start now',style: TextStyle(fontSize: 20),),
+                  SizedBox(height: 20),
+                  Text(
+                    'Your trusted source for medical supplies.',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  SizedBox(height: 100),
+                  ElevatedButton(
+
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(WebAuthScreen.routeName);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(130, 40), // Set the width and height
+                      primary: Colors.deepPurpleAccent, ),
+                    child: Text('Get Started'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          // Right side with image
+          Expanded(
+            flex: 3,
+            child: Container(
+              height: 1200,
+              width: 1200,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/Screenshot 2023-12-12 035745.jpg',), // replace with your image path
+
                 ),
-                SizedBox(width: 50), // Adding some space between the buttons
-            
-          ],
-        ),
-      ),
-    ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
-
-
 }

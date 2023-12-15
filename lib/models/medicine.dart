@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class Medicine with ChangeNotifier {
+
   final  id;
   final String scientificName;
   final String commercialName;
@@ -10,9 +11,10 @@ class Medicine with ChangeNotifier {
   final DateTime expiryDate;
   final double price;
   final String imageUrl;
-
+  final bool isfavorate;
 
   Medicine({
+
     required this.id,
     required this.scientificName,
     required this.commercialName,
@@ -22,5 +24,6 @@ class Medicine with ChangeNotifier {
     required this.expiryDate,
     required this.price,
     required this.imageUrl,
+    required this.isfavorate,
   });
 }

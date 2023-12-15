@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class TopBar extends StatelessWidget {
+import '../models/Language.dart';
+
+class TopBar extends StatefulWidget {
+  @override
+  _TopBarState createState() => _TopBarState();
+}
+
+class _TopBarState extends State<TopBar> {
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -11,7 +19,7 @@ class TopBar extends StatelessWidget {
             color: Colors.grey,
             offset: Offset(0, 5),
             blurRadius: 17,
-          )
+          ),
         ],
       ),
       height: 50,
@@ -51,38 +59,35 @@ class TopBar extends StatelessWidget {
               TextButton.icon(
                 icon: Icon(Icons.settings),
                 label: Text('Settings'),
-                onPressed: () {},
+                onPressed: () {
+                  showPopupMenu(context);
+                },
               ),
               SizedBox(
                 width: 20,
               ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CircleAvatar(
-                    radius: 14,
-                  ),
-                  SizedBox(width: 5),
-                  Text('Santos Enoque'),
-                  IconButton(
-                    icon: Icon(Icons.keyboard_arrow_down),
-                    onPressed: () {
-                      print("CLICKED");
-                      myPopMenu();
-                    },
-                  )
-                ],
-              )
             ],
           )
         ],
       ),
     );
   }
-  Widget myPopMenu() {
-    return PopupMenuButton(
-      onSelected: (value) {},
-      itemBuilder: (context) => [
+
+  void showPopupMenu(BuildContext context) {
+    final RenderBox overlay = Overlay
+        .of(context)
+        .context
+        .findRenderObject() as RenderBox;
+    showMenu(
+      context: context,
+      position: RelativeRect.fromRect(
+        Rect.fromPoints(
+          Offset(500, 0),
+          overlay.localToGlobal(overlay.size.bottomLeft(Offset.zero)),
+        ),
+        Offset.zero & overlay.size,
+      ),
+      items: [
         PopupMenuItem(
           value: 1,
           child: Row(
@@ -113,9 +118,32 @@ class TopBar extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
-                child: Icon(Icons.add_circle),
+                child: Icon(Icons.language),
               ),
-              Text('Add'),
+              Text('Language'),
+              SizedBox(width: 10),
+              DropdownButton<String>(
+                value: Provider
+                    .of<Language>(context, listen: false)
+                    .locale
+                    .languageCode,
+                items: [
+                  DropdownMenuItem(
+                    value: 'en',
+                    child: Text('English'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'ar',
+                    child: Text('Arabic'),
+                  ),
+                ],
+                onChanged: (value) {
+                  if (value != null) {
+                    Provider.of<Language>(context, listen: false)
+                        .changeLanguage(Locale(value));
+                  }
+                },
+              ),
             ],
           ),
         ),

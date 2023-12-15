@@ -141,6 +141,9 @@ class MedicinesList with ChangeNotifier {
     //
     // ),
   ];
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   MedicinesList(this.medicines){
     notifyListeners();
   }
@@ -150,42 +153,47 @@ class MedicinesList with ChangeNotifier {
 
     return [...medicines];
   }
+
   Medicine findById(int id) {
     return items.firstWhere((prod) => prod.id == id);
   }
 
-  // Future<void> fetchAndSetMedicines([bool filterByUser = false]) async {
-  //   var url = Uri.parse(
-  //       'https://artful-striker-383809-default-rtdb.firebaseio.com/medicines.json?');
-  //
-  //   try {
-  //     final response = await http.get(url);
-  //     final extractedData = json.decode(response.body) as Map<String, dynamic>;
-  //     if (extractedData == null) {
-  //       return;
-  //     }
-  //     final List<Medicine> loadedProducts = [];
-  //     extractedData.forEach((prodId, MedData) {
-  //       loadedProducts.add(Medicine(
-  //         id: prodId,
-  //         scientificName:MedData['scientificName'],
-  //         commercialName: MedData['commercialName'],
-  //         category: MedData['category'],
-  //         quantityAvailable: MedData['quantityAvailable'],
-  //         manufacturer : MedData['manufacturer'],
-  //         expiryDate: MedData['expiryDate'],
-  //         price: MedData['price'],
-  //         imageUrl: MedData['imageUrl'],
-  //
-  //       ));
-  //     });
-  //     medicines = loadedProducts;
-  //     notifyListeners();
-  //   } catch (error) {
-  //     throw (error);
-  //   }
-  //
-  // }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+  Future<void> fetchAndSetMedicines([bool filterByUser = false]) async {
+    var url = Uri.parse(
+        'https://artful-striker-383809-default-rtdb.firebaseio.com/medicines.json?');
+    try {
+      final response = await http.get(url);
+      final extractedData = json.decode(response.body) as Map<String, dynamic>;
+      if (extractedData == null) {
+        return;
+      }
+      final List<Medicine> loadedProducts = [];
+      extractedData.forEach((prodId, MedData) {
+        loadedProducts.add(Medicine(
+          id: MedData['id'],
+          scientificName:MedData['scientificName'],
+          commercialName: MedData['commercialName'],
+          category: MedData['category'],
+          quantityAvailable: MedData['quantityAvailable'],
+          manufacturer : MedData['manufacturer'],
+          expiryDate: MedData['expiryDate'],
+          price: MedData['price'],
+          imageUrl: MedData['imageUrl'],
+          isfavorate: MedData['isfavorate'],
+        ));
+      });
+      medicines = loadedProducts;
+      notifyListeners();
+    } catch (error) {
+      throw (error);
+    }
+
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   Future<void> addMedicine(Medicine medicine) async {
     var url = Uri.parse(
@@ -193,6 +201,7 @@ class MedicinesList with ChangeNotifier {
     try {
       final response = await http.post(url, body: json.encode(
           {
+            'id':medicine.id,
             'scientificName': medicine.scientificName,
             'commercialName' : medicine.commercialName,
             'category': medicine.category,
@@ -201,9 +210,11 @@ class MedicinesList with ChangeNotifier {
             'expiryDate': medicine.expiryDate.toIso8601String(),
             'price' : medicine.price,
             'imageUrl':medicine.imageUrl,
+            'favorate':medicine.isfavorate,
           }
       ),);
       final newMedicine = Medicine(
+        id:medicine.id,
         scientificName : medicine.scientificName,
         commercialName : medicine.commercialName,
         category: medicine.category,
@@ -212,7 +223,7 @@ class MedicinesList with ChangeNotifier {
         expiryDate: medicine.expiryDate,
         price : medicine.price,
         imageUrl:medicine.imageUrl,
-        id: id++,
+        isfavorate:medicine.isfavorate,
       );
       medicines.add(newMedicine);
       // _items.insert(0, newProduct); // at the start of the list

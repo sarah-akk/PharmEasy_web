@@ -14,26 +14,24 @@ class WebAuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final transformConfig = Matrix4.rotationZ(-8 * pi / 180);
-    // transformConfig.translate(-10.0);
+
     return Scaffold(
 
-      // resizeToAvoidBottomInset: false,
       body:Stack(
         fit: StackFit.expand,
         children: [
-        Image.asset("assets/images/cute-pink-blue-abstract-background-for-web-design-vector-22334520.jpg",
-        fit: BoxFit.cover,),
-      // Background Image
+      //   Image.asset("assets/images/cute-pink-blue-abstract-background-for-web-design-vector-22334520.jpg",
+      //   fit: BoxFit.cover,),
+      // // Background Image
       Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
 
           SizedBox(height: 2),
-          Text("Welcome Back! ",style: TextStyle(fontSize: 40,color: Colors.pinkAccent),),
+          Text("Welcome Back! ",style: TextStyle(fontSize: 40,color: Colors.pinkAccent,fontWeight: FontWeight.bold),),
           SizedBox(height: 30),
-          Text("please inter your email and password",style: TextStyle(fontSize:20,color: Colors.deepPurple),),
+          Text("please inter your email and password",style: TextStyle(fontSize:20,color: Colors.deepPurple,fontWeight: FontWeight.bold),),
 
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -63,7 +61,7 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
   final GlobalKey<FormState> _formKey = GlobalKey();
   AuthMode _authMode = AuthMode.Login;
   Map<String, String> _authData = {
-    'Phone Number': '',
+    'phoneNumber': '',
     'password': '',
   };
   var _isLoading = false;
@@ -102,8 +100,42 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
   }
 
   Future<void> _submit() async {
-    Navigator.of(context).pushReplacementNamed('/HomePageDesktop');
+    if (!_formKey.currentState!.validate()) {
+      // Invalid!
+      return;
+    }
+    _formKey.currentState?.save();
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      if (_authMode == AuthMode.Login) {
+        // Log user in
+        await Provider.of<Auth>(context, listen: false).login(
+          _authData['phoneNumber']!,
+          _authData['password']!,
+        );
+      } else {
+        // Sign user up
+        await Provider.of<Auth>(context, listen: false).signUp(
+          _authData['phoneNumber']!,
+          _authData['password']!,
+        );
+      }
+      Navigator.of(context).pushReplacementNamed('/HomePageDesktop');
+    }
+    catch (error) {
+      const errorMessage =
+          'Could not authenticate you. Please try again later.';
+      print(error.toString());
+      _showErrorDialog(errorMessage);
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
   }
+
 
   void _switchAuthMode() {
     if (_authMode == AuthMode.Login) {
@@ -149,7 +181,7 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
                     return null;
                   },
                   onSaved: (value) {
-                    _authData['Phone Number'] = value!;
+                    _authData['phoneNumber'] = value!;
                   },
                 ),
                 TextFormField(
@@ -172,7 +204,7 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
                     obscureText: true,
                     validator: _authMode == AuthMode.Signup
                         ? (value) {
-                      if (value != _passwordController.text) {
+                      if (value == null || value != _passwordController.text) {
                         return 'Passwords do not match!';
                       }
                     }

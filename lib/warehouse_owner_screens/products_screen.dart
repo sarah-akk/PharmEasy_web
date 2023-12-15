@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import '../warehouse_owner_widgets/medicine_gride.dart';
 import '../warehouse_owner_widgets/drawer.dart';
-import '../warehouse_owner_widgets/add_medicine.dart';
+import 'add_medicine.dart';
 import '../warehouse_owner_widgets/page_header.dart';
 import '../warehouse_owner_widgets/top_bar.dart';
 

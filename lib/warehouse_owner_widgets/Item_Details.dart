@@ -9,7 +9,9 @@ class MedicineDetailsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final medicineId = ModalRoute.of(context)!.settings.arguments as int;
+
     final loadedMedicine = Provider.of<MedicinesList>(
       context,
       listen: false,

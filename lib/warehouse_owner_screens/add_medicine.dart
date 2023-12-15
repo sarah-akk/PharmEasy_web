@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:medicine_warehouse/models/medicine.dart';
 import 'package:medicine_warehouse/models/medicines.dart';
-import 'package:medicine_warehouse/warehouse_owner_widgets/medicine_gride.dart';
 import 'package:medicine_warehouse/warehouse_owner_widgets/page_header.dart';
 import 'package:medicine_warehouse/warehouse_owner_widgets/top_bar.dart';
 import 'package:provider/provider.dart';
-import '../warehouse_owner_screens/products_screen.dart';
-import 'drawer.dart';
+import 'products_screen.dart';
+import '../warehouse_owner_widgets/drawer.dart';
+
 class MedicineAddScreen extends StatefulWidget {
   static const routeName = '/MedicineAddScreen';
 
@@ -38,6 +38,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
     expiryDate: DateTime.now(),
     price: 0,
     imageUrl: '',
+    isfavorate: false,
   );
 
   var _initValues = {
@@ -49,6 +50,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
     'expiryDate': DateTime.now(),
     'price': 0,
     'imageUrl': '',
+    'isfavorate':false,
   };
 
   Future<void> _saveForm() async {
@@ -94,7 +96,6 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
         child: Column(
         children: [
           TopBar(),  // Add the TopBar widget here
-
           Expanded(
       child:  Stack(
         fit: StackFit.expand,
@@ -151,6 +152,8 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                           expiryDate: newMedicine.expiryDate,
                           price: newMedicine.price,
                           imageUrl: newMedicine.imageUrl,
+                          isfavorate: newMedicine.isfavorate,
+
                         );
                       }
                     },
@@ -181,6 +184,8 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                           expiryDate: newMedicine.expiryDate,
                           price: newMedicine.price,
                           imageUrl: newMedicine.imageUrl,
+                          isfavorate: newMedicine.isfavorate,
+
                         );
                       }
                     },
@@ -211,6 +216,8 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                           expiryDate: newMedicine.expiryDate,
                           price: newMedicine.price,
                           imageUrl: newMedicine.imageUrl,
+                          isfavorate: newMedicine.isfavorate,
+
                         );
                       }
                     },
@@ -242,6 +249,8 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                           expiryDate: newMedicine.expiryDate,
                           price: newMedicine.price,
                           imageUrl: newMedicine.imageUrl,
+                          isfavorate: newMedicine.isfavorate,
+
                         );
                       }
                     },
@@ -274,6 +283,8 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                           expiryDate: newMedicine.expiryDate,
                           price: newMedicine.price,
                           imageUrl: newMedicine.imageUrl,
+                          isfavorate: newMedicine.isfavorate,
+
                         );
                       }
                     },
@@ -304,6 +315,8 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                           expiryDate: DateTime.parse(value),
                           price: newMedicine.price,
                           imageUrl: newMedicine.imageUrl,
+                          isfavorate: newMedicine.isfavorate,
+
                         );
                       }
                     },
@@ -335,6 +348,8 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                           expiryDate: newMedicine.expiryDate,
                           price: double.parse(value).toDouble(),
                           imageUrl: newMedicine.imageUrl,
+                          isfavorate: newMedicine.isfavorate,
+
                         );
                       }
                     },
@@ -366,6 +381,8 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                           expiryDate: newMedicine.expiryDate,
                           price: newMedicine.price,
                           imageUrl: value.toString(),
+                          isfavorate: newMedicine.isfavorate,
+
                         );
                       }
                     },
