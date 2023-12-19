@@ -1,10 +1,6 @@
-import 'dart:io';
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../models/Auth.dart';
 
 enum AuthMode { Signup, Login }
@@ -20,33 +16,32 @@ class WebAuthScreen extends StatelessWidget {
       body:Stack(
         fit: StackFit.expand,
         children: [
-      //   Image.asset("assets/images/cute-pink-blue-abstract-background-for-web-design-vector-22334520.jpg",
-      //   fit: BoxFit.cover,),
-      // // Background Image
-      Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
 
-          SizedBox(height: 2),
-          Text("Welcome Back! ",style: TextStyle(fontSize: 40,color: Colors.pinkAccent,fontWeight: FontWeight.bold),),
-          SizedBox(height: 30),
-          Text("please inter your email and password",style: TextStyle(fontSize:20,color: Colors.deepPurple,fontWeight: FontWeight.bold),),
+              SizedBox(height: 2),
+              Text("Welcome Back! ",style: TextStyle(fontSize: 40,color: Colors.pinkAccent,fontWeight: FontWeight.bold),),
+              SizedBox(height: 30),
+              Text("please inter your email and password",style: TextStyle(fontSize:20,color: Colors.deepPurple,fontWeight: FontWeight.bold),),
 
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
 
-            AuthCard(),
-            Image.asset("assets/images/Screenshot 2023-11-18 163907.png",width: 300,height: 300,),
-          ],
-      ),
-    ],
-    ),]
-    ,),);
+                  AuthCard(),
+                  Image.asset("assets/images/Screenshot 2023-11-18 163907.png",width: 300,height: 300,),
+                ],
+              ),
+            ],
+          ),]
+        ,),);
   }
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class AuthCard extends StatefulWidget {
   const AuthCard({
@@ -58,6 +53,7 @@ class AuthCard extends StatefulWidget {
 }
 
 class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin {
+
   final GlobalKey<FormState> _formKey = GlobalKey();
   AuthMode _authMode = AuthMode.Login;
   Map<String, String> _authData = {
@@ -69,6 +65,8 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
   AnimationController? controller;
   Animation<Size>? heightAnimation;
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   @override
   void initState()
   {
@@ -79,7 +77,7 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
     heightAnimation!.addListener(() => setState((){}));
 
   }
-
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   void _showErrorDialog(String message) {
     showDialog(
@@ -99,6 +97,8 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
     );
   }
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) {
       // Invalid!
@@ -117,12 +117,18 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
         );
       } else {
         // Sign user up
-        await Provider.of<Auth>(context, listen: false).signUp(
+        String responseMessage = await Provider.of<Auth>(context, listen: false).signUp(
           _authData['phoneNumber']!,
           _authData['password']!,
         );
+        if (responseMessage.startsWith('success')) {
+          Navigator.of(context).pushReplacementNamed('/HomePageDesktop');
+        }
+        else if (responseMessage.startsWith('error')) {
+          // Registration failed
+          _showErrorDialog(responseMessage);
+        }
       }
-      Navigator.of(context).pushReplacementNamed('/HomePageDesktop');
     }
     catch (error) {
       const errorMessage =
@@ -136,7 +142,7 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
     });
   }
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void _switchAuthMode() {
     if (_authMode == AuthMode.Login) {
       setState(() {
@@ -150,6 +156,7 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
       controller!.reverse();
     }
   }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   @override
   Widget build(BuildContext context) {
@@ -166,11 +173,13 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
         width: 500,
         padding: EdgeInsets.all(16.0),
         duration: Duration(milliseconds: 300),
+
         child:  Form(
           key: _formKey,
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
+
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Phone Number'),
                   keyboardType: TextInputType.emailAddress,
@@ -210,6 +219,8 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
                     }
                         : null,
                   ),
+
+
                 SizedBox(
                   height: 20,
                 ),
@@ -240,12 +251,11 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                       EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
-                      
+
                     ),
                     textStyle: MaterialStateProperty.all<TextStyle>(
                       TextStyle(color: Theme.of(context).primaryColor),
                     ),
-                    // You can customize other properties as needed.
                   ),
 
                   child: Text('${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),

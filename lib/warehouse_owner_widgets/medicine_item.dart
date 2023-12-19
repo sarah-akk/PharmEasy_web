@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../models/Auth.dart';
 import '../models/medicine.dart';
 import 'Item_Details.dart';
 
 
-class WebMedicineItem extends StatefulWidget {
+class WebMedicineItem extends StatelessWidget {
 
+  final Medicine med;
+  WebMedicineItem(this.med);
 
-  @override
-  State<WebMedicineItem> createState() => _WebMedicineItemState();
-}
-
-class _WebMedicineItemState extends State<WebMedicineItem> {
   // final String id;
   @override
   Widget build(BuildContext context) {
     final medicine = Provider.of<Medicine>(context, listen: false);
-   //  final cart = Provider.of<Cart>(context, listen: false);
-   //  final authData =Provider.of<Auth>(context,listen: false);
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
 
@@ -28,17 +22,17 @@ class _WebMedicineItemState extends State<WebMedicineItem> {
           onTap: () {
             Navigator.of(context).pushNamed(
                 MedicineDetailsCard.routeName,
-                arguments: medicine.id);
+                arguments: med.id);
           },
           child: Image.network(
-            medicine.imageUrl,
+            med.imageUrl,
             fit: BoxFit.cover,
           ),
         ),
         footer: GridTileBar(
           backgroundColor: Colors.black87,
           title: Text(
-            medicine.commercialName,
+            med.commercialName,
             textAlign: TextAlign.center,
 
 

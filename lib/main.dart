@@ -16,9 +16,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
-
 class MyApp extends StatelessWidget {
-
 
   @override
   Widget build(BuildContext context) {
@@ -27,39 +25,44 @@ class MyApp extends StatelessWidget {
     return
       MultiProvider(
           providers: [
-    ChangeNotifierProvider(create: (_) => Auth()),ChangeNotifierProxyProvider<Auth,MedicinesList>(
-        create: (_) => MedicinesList([]), // Create your Products instance here.
-    update: (ctx, auth, previousProducts) => MedicinesList(
-    previousProducts == null ? [] : previousProducts.medicines,
+
+            ChangeNotifierProvider(create: (_) => Auth()),
+
+            ChangeNotifierProxyProvider<Auth,MedicinesList>(
+              create: (_) => MedicinesList('','',[]), // Create your Products instance here.
+              update: (ctx, auth, previousProducts) => MedicinesList(
+                auth.token,
+                auth.userId,
+                previousProducts == null ? [] : previousProducts.medicines,
               ),
             ),
-    ChangeNotifierProvider<Language>(
-    create: (context) => Language(),),
+            ChangeNotifierProvider<Language>(
+              create: (context) => Language(),),
           ],
-        child: MaterialApp(
-          theme: ThemeData(
-            primaryColor: Colors.blueAccent,
-            accentColor: Colors.greenAccent,
-            // Add more theme properties
-          ),
-          debugShowCheckedModeBanner: false,
-          home:StartPage(),
+          child: MaterialApp(
+            theme: ThemeData(
+              primaryColor: Colors.blueAccent,
+              accentColor: Colors.greenAccent,
+              // Add more theme properties
+            ),
+            debugShowCheckedModeBanner: false,
+            home:StartPage(),
 
-          routes: {
-            StartPage.routeName:(ctx)=>StartPage(),
-            WebAuthScreen.routeName: (ctx) => WebAuthScreen(),
-            HomePage.routeName : (ctx) => HomePage(),
-            ProductsScreen.routeName:(ctx)=>ProductsScreen(),
-            MedicineAddScreen.routeName:(ctx)=>MedicineAddScreen(),
-            MedicineDetailsCard.routeName:(ctx)=>MedicineDetailsCard(),
-            OrdersScreen.routeName:(ctx)=>OrdersScreen(),
+            routes: {
+              StartPage.routeName:(ctx)=>StartPage(),
+              WebAuthScreen.routeName: (ctx) => WebAuthScreen(),
+              HomePage.routeName : (ctx) => HomePage(),
+              ProductsScreen.routeName:(ctx)=>ProductsScreen(),
+              MedicineAddScreen.routeName:(ctx)=>MedicineAddScreen(),
+              MedicineDetailsCard.routeName:(ctx)=>MedicineDetailsCard(),
+              OrdersScreen.routeName:(ctx)=>OrdersScreen(),
 
-          },
+            },
 
 
 
-        )
-    );
+          )
+      );
 
   }
 }

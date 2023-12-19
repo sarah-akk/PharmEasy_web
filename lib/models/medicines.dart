@@ -5,146 +5,13 @@ import 'medicine.dart';
 import 'package:provider/provider.dart';
 
 class MedicinesList with ChangeNotifier {
+
   int id=0;
-  List<Medicine> medicines = [
-    // Medicine(
-    //   id: 0,
-    //   scientificName: 'Acetaminophen',
-    //   commercialName: 'Tylenol',
-      //   category: 'Pain Relief',
-    //   manufacturer: 'Johnson & Johnson',
-    //   quantityAvailable: 100,
-    //   expiryDate: DateTime(2023, 12, 31),
-    //   price: 10.99,
-    //   isFavorite: false
-    //   imageUrl: "",
-    // ),
-    // Medicine(
-    //   id: 1,
-    //   scientificName: 'Ibuprofen',
-    //   commercialName: 'Advil',
-    //   category: 'Pain Relief',
-    //   manufacturer: 'Pfizer',
-    //   quantityAvailable: 80,
-    //   expiryDate: DateTime(2023, 11, 30),
-    //   price: 8.99,
-    //   isFavorite: false,
-    //   imageUrl: "",
-    //
-    // ),
-    // Medicine(
-    //   id: 2,
-    //   scientificName: 'Cetirizine',
-    //   commercialName: 'Zyrtec',
-    //   category: 'Antihistamine',
-    //   manufacturer: 'Johnson & Johnson',
-    //   quantityAvailable: 50,
-    //   expiryDate: DateTime(2023, 10, 31),
-    //   price: 15.99,
-    //   isFavorite: false,
-    //   imageUrl: "",
-    //
-    // ),
-    // Medicine(
-    //   id: 3,
-    //   scientificName: 'Omeprazole',
-    //   commercialName: 'Prilosec',
-    //   category: 'Antacid',
-    //   manufacturer: 'AstraZeneca',
-    //   quantityAvailable: 60,
-    //   expiryDate: DateTime(2023, 9, 30),
-    //   price: 12.99,
-    //   isFavorite: false,
-    //   imageUrl: "",
-    //
-    //
-    // ),
-    // Medicine(
-    //   id: 4,
-    //   scientificName: 'Amoxicillin',
-    //   commercialName: 'Amoxil',
-    //   category: 'Antibiotic',
-    //   manufacturer: 'GlaxoSmithKline',
-    //   quantityAvailable: 30,
-    //   expiryDate: DateTime(2023, 8, 31),
-    //   price: 18.99,
-    //   isFavorite: false,
-    //   imageUrl: "",
-    //
-    //
-    // ),
-    // Medicine(
-    //   id: 5,
-    //   scientificName: 'Loratadine',
-    //   commercialName: 'Claritin',
-    //   category: 'Antihistamine',
-    //   manufacturer: 'Bayer',
-    //   quantityAvailable: 40,
-    //   expiryDate: DateTime(2023, 7, 31),
-    //   price: 9.99,
-    //   isFavorite: false,
-    //   imageUrl: "",
-    //
-    //
-    // ),
-    // Medicine(
-    //   id: 6,
-    //   scientificName: 'Simvastatin',
-    //   commercialName: 'Zocor',
-    //   category: 'Cholesterol Lowering',
-    //   manufacturer: 'Merck',
-    //   quantityAvailable: 25,
-    //   expiryDate: DateTime(2023, 6, 30),
-    //   price: 14.99,
-    //   isFavorite: false,
-    //   imageUrl: "",
-    //
-    //
-    // ),
-    // Medicine(
-    //   id: 7,
-    //   scientificName: 'Metformin',
-    //   commercialName: 'Glucophage',
-    //   category: 'Diabetes Management',
-    //   manufacturer: 'Bristol Myers Squibb',
-    //   quantityAvailable: 35,
-    //   expiryDate: DateTime(2023, 5, 31),
-    //   price: 11.99,
-    //   isFavorite: false,
-    //   imageUrl: "",
-    //
-    // ),
-    // Medicine(
-    //   id: 8,
-    //   scientificName: 'Albuterol',
-    //   commercialName: 'Ventolin',
-    //   category: 'Respiratory',
-    //   manufacturer: 'GSK',
-    //   quantityAvailable: 45,
-    //   expiryDate: DateTime(2023, 4, 30),
-    //   price: 16.99,
-    //   isFavorite: false,
-    //   imageUrl: "",
-    //
-    // ),
-    // Medicine(
-    //   id: 9,
-    //   scientificName: 'Warfarin',
-    //   commercialName: 'Coumadin',
-    //   category: 'Anticoagulant',
-    //   manufacturer: 'Bristol Myers Squibb',
-    //   quantityAvailable: 20,
-    //   expiryDate: DateTime(2023, 3, 31),
-    //   price: 13.99,
-    //   isFavorite: false,
-    //   imageUrl: "",
-    //
-    // ),
-  ];
+  List<Medicine> medicines = [];
+  final String? authToken;
+  final String? userId;
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  MedicinesList(this.medicines){
+  MedicinesList(this.authToken,this.userId,this.medicines){
     notifyListeners();
   }
   notifyListeners();
@@ -162,59 +29,61 @@ class MedicinesList with ChangeNotifier {
 
 
   Future<void> fetchAndSetMedicines([bool filterByUser = false]) async {
+
+    //final filterString = filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
     var url = Uri.parse(
-        'https://artful-striker-383809-default-rtdb.firebaseio.com/medicines.json?');
+        'https://artful-striker-383809-default-rtdb.firebaseio.com/medicines.json?auth=$authToken');
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
+      print(response.body);
       if (extractedData == null) {
         return;
       }
       final List<Medicine> loadedProducts = [];
       extractedData.forEach((prodId, MedData) {
         loadedProducts.add(Medicine(
-          id: MedData['id'],
-          scientificName:MedData['scientificName'],
-          commercialName: MedData['commercialName'],
+          id: id++,
+          scientificName:MedData['scientific_name'],
+          commercialName: MedData['commercial_name'],
           category: MedData['category'],
-          quantityAvailable: MedData['quantityAvailable'],
-          manufacturer : MedData['manufacturer'],
-          expiryDate: MedData['expiryDate'],
+          quantityAvailable: MedData['available_quantity'],
+          manufacturer : MedData['manufacture_company'],
+          expiryDate: DateTime.parse(MedData['expiration_date']),
           price: MedData['price'],
-          imageUrl: MedData['imageUrl'],
-          isfavorate: MedData['isfavorate'],
+          imageUrl: MedData['photo'],
+          isfavorate: MedData['favorite'],
         ));
       });
       medicines = loadedProducts;
+     // print(loadedProducts.length);
       notifyListeners();
     } catch (error) {
       throw (error);
     }
-
   }
-
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   Future<void> addMedicine(Medicine medicine) async {
-    var url = Uri.parse(
-        'https://artful-striker-383809-default-rtdb.firebaseio.com/products.json');
+
+    var url = Uri.parse('https://artful-striker-383809-default-rtdb.firebaseio.com/medicines.json?auth=$authToken');
     try {
       final response = await http.post(url, body: json.encode(
           {
-            'id':medicine.id,
-            'scientificName': medicine.scientificName,
-            'commercialName' : medicine.commercialName,
+            'scientific_name': medicine.scientificName,
+            'commercial_name' : medicine.commercialName,
             'category': medicine.category,
-            'quantityAvailable' : medicine.quantityAvailable,
-            'manufacturer': medicine.manufacturer,
-            'expiryDate': medicine.expiryDate.toIso8601String(),
+            'manufacture_company': medicine.manufacturer,
+            'available_quantity' : medicine.quantityAvailable,
+            'expiration_date': medicine.expiryDate.toIso8601String(),
             'price' : medicine.price,
-            'imageUrl':medicine.imageUrl,
-            'favorate':medicine.isfavorate,
+            'photo':medicine.imageUrl,
+            'favorite':medicine.isfavorate,
           }
-      ),);
+      ),
+      );
       final newMedicine = Medicine(
-        id:medicine.id,
+        id:id++,
         scientificName : medicine.scientificName,
         commercialName : medicine.commercialName,
         category: medicine.category,
@@ -226,7 +95,7 @@ class MedicinesList with ChangeNotifier {
         isfavorate:medicine.isfavorate,
       );
       medicines.add(newMedicine);
-      // _items.insert(0, newProduct); // at the start of the list
+      print(medicines.length);
       notifyListeners();
       print("ok");
     }
@@ -234,8 +103,6 @@ class MedicinesList with ChangeNotifier {
       print(error);
       throw error;
     }
-
-
   }
 
 }

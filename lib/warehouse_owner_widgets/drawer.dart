@@ -46,7 +46,7 @@ class mydrawer extends StatelessWidget {
            },
          ),
          ListTile(
-           leading: Icon(Icons.widgets, color: Colors.white),
+           leading: Icon(Icons.medical_information, color: Colors.white),
            title: Text('Products', style: TextStyle(color: Colors.white,fontSize: 20)),
            onTap: () {
              Navigator.of(context).pushReplacementNamed('/ProductsScreen');

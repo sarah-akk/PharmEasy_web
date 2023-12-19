@@ -26,69 +26,66 @@ class Auth with ChangeNotifier{
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-  Future<void> logintoAdmin(String? PhoneNumber,String? passowrd,String? urlSegment )async{
-    var url = Uri.parse(
-        'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=AIzaSyAHN6mVcn_YLp_j7dzeGr5SgqRtrdiFAIg');
-    try {final response =  await http.post(url,body: jsonEncode({
-      'email':PhoneNumber,
-      'password':passowrd,
-      'returnSecureToken' :true,})
-    );
-    final responseData = json.decode(response.body);
-
-    token = responseData['idToken'];
-    userId = responseData['localId'];
-    expireyDate= DateTime.now().add(Duration(
-      seconds:int.parse( responseData['expiresIn']),),);
-    autoLogOut();
-    notifyListeners();
-    final prefs = await SharedPreferences.getInstance();
-    final userData = json.encode({'token':token,'userId':userId,'expirydate':expireyDate!.toIso8601String()});
-    prefs.setString('userData', userData);
-    }
-
-    catch(error){
-      throw error;
-
-    }
-
-  }
-
   // Future<void> logintoAdmin(String? PhoneNumber,String? passowrd,String? urlSegment )async{
+  //   var url = Uri.parse(
+  //       'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=AIzaSyAHN6mVcn_YLp_j7dzeGr5SgqRtrdiFAIg');
+  //   try {final response =  await http.post(url,body: jsonEncode({
+  //     'email':PhoneNumber,
+  //     'password':passowrd,
+  //     'returnSecureToken' :true,})
+  //   );
+  //   final responseData = json.decode(response.body);
   //
-  //     var url = Uri.parse('http://192.168.137.184/api/login'); // Replace with your Laravel login endpoint1
-  //
-  //   try {
-  //     final response = await http.post(url, headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //         body: jsonEncode({
-  //       'phone': PhoneNumber,
-  //       'password': passowrd,
-  //     })
-  //     );
-  //     if (response.statusCode == 200) {
-  //       // Successful login
-  //
-  //       final Map<String, dynamic> data = json.decode(response.body);
-  //       print('Login successful: ${data['message']}');
-  //     } else {
-  //       // Handle login failure
-  //       print('Login failed: ${response.reasonPhrase}');
-  //     }
+  //   token = responseData['idToken'];
+  //   userId = responseData['localId'];
+  //   expireyDate= DateTime.now().add(Duration(
+  //     seconds:int.parse( responseData['expiresIn']),),);
+  //   autoLogOut();
+  //   notifyListeners();
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final userData = json.encode({'token':token,'userId':userId,'expirydate':expireyDate!.toIso8601String()});
+  //   prefs.setString('userData', userData);
   //   }
+  //
   //   catch(error){
   //     throw error;
   //
   //   }
+  //
   // }
 
+  Future<String> logintoAdmin(String? PhoneNumber,String? passowrd,String? urlSegment )async{
 
-  Future<void> signUp( String PhoneNumber ,String passowrd)async{
+      var url = Uri.parse('http://127.0.0.1:8000/api/login/admin'); // Replace with your Laravel login endpoint1
+    try {
+      final response = await http.post(url,
+
+          body: jsonEncode({
+        'phone': PhoneNumber,
+        'password': passowrd,
+      })
+      );
+      if (response.statusCode == 200) {
+        // Successful login
+
+        final Map<String, dynamic> data = json.decode(response.body);
+        return 'success: ${data['message']}';
+      } else {
+        // Handle login failure
+        return 'error: ${response.reasonPhrase}';      }
+    }
+    catch(error){
+      throw error;
+
+    }
+  }
+
+
+  Future<String> signUp( String PhoneNumber ,String passowrd)async{
     return logintoAdmin(PhoneNumber,passowrd,'signUp');
   }
 
-  Future<void> login( String PhoneNumber ,String passowrd)async{
+  Future<String> login( String PhoneNumber ,String passowrd)async{
     return logintoAdmin(PhoneNumber,passowrd,'signInWithPassword');
 
   }

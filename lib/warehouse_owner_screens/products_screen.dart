@@ -247,7 +247,8 @@ class _ProductsScreenState extends State<ProductsScreen> {
                               buildCategoryFilterButton(),
                             ],
                           ),
-                          SizedBox(
+              SizedBox(height: 40,)
+           ,   SizedBox(
                             height: 1500,
                             child: WebMedicineGride(),
                           ),

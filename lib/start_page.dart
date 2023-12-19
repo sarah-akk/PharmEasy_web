@@ -41,7 +41,6 @@ class StartPage extends StatelessWidget{
                   ),
                   SizedBox(height: 100),
                   ElevatedButton(
-
                     onPressed: () {
                       Navigator.of(context).pushNamed(WebAuthScreen.routeName);
                     },
