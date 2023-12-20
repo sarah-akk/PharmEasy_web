@@ -54,39 +54,39 @@ class Auth with ChangeNotifier{
   //
   // }
 
-  Future<String> logintoAdmin(String? PhoneNumber,String? passowrd,String? urlSegment )async{
+  Future<String> logintoAdmin(String? phone,String? password )async{
 
-      var url = Uri.parse('http://127.0.0.1:8000/api/login/admin'); // Replace with your Laravel login endpoint1
+      var url = Uri.parse('http://127.0.0.1:8000/api/login/admin');
     try {
-      final response = await http.post(url,
+      final response = await http.post(
+        url,
+        body: jsonEncode({'phone': phone, 'password': password}),
+        headers: {'Content-Type': 'application/json'},
+    );
+      print(response.body);
+      final Map<String, dynamic> data = json.decode(response.body);
 
-          body: jsonEncode({
-        'phone': PhoneNumber,
-        'password': passowrd,
-      })
-      );
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 && data['message']=='welcome.' ) {
         // Successful login
-
         final Map<String, dynamic> data = json.decode(response.body);
         return 'success: ${data['message']}';
       } else {
         // Handle login failure
-        return 'error: ${response.reasonPhrase}';      }
+        return 'error: ${data['message']}';
+      }
     }
     catch(error){
       throw error;
-
     }
   }
 
 
   Future<String> signUp( String PhoneNumber ,String passowrd)async{
-    return logintoAdmin(PhoneNumber,passowrd,'signUp');
+    return logintoAdmin(PhoneNumber,passowrd);
   }
 
   Future<String> login( String PhoneNumber ,String passowrd)async{
-    return logintoAdmin(PhoneNumber,passowrd,'signInWithPassword');
+    return logintoAdmin(PhoneNumber,passowrd);
 
   }
 

@@ -32,10 +32,6 @@ class MedicineDetailsCard extends StatelessWidget {
       height: 500,
       width: 500,
       decoration: BoxDecoration(
-        // image: DecorationImage(
-        //   image: AssetImage('assets/images/32c3eaaed26fa73510851bc7ffdbf0fa.jpg'), // Replace with your image path
-        //   fit: BoxFit.cover,
-        // ),
         shape: BoxShape.rectangle,
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -55,6 +51,7 @@ class MedicineDetailsCard extends StatelessWidget {
             height: 200, // Adjust the height as needed
             width: 200, // Adjust the width as needed
           ),
+          SizedBox(height: 30,),
           Text(
             'Scientific Name: ${loadedMedicine.scientificName}',
             style: TextStyle(fontWeight: FontWeight.bold),
@@ -71,7 +68,8 @@ class MedicineDetailsCard extends StatelessWidget {
           Text('Expiry Date: ${loadedMedicine.expiryDate.toString()}'),
           SizedBox(height: 8),
           Text('Price: ${loadedMedicine.price.toString()}'),
-          SizedBox(height: 8),
+          SizedBox(height: 30,),
+
           ElevatedButton(
 
             onPressed: () {

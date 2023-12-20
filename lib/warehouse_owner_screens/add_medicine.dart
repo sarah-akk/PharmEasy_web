@@ -29,13 +29,13 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
   var _isloading = false;
 
   var newMedicine = Medicine(
-    id: null,
+    id: 0,
     scientificName: '',
     commercialName: '',
     category: '',
     manufacturer: '',
     quantityAvailable: 0,
-    expiryDate: DateTime.now(),
+    expiryDate: '',
     price: 0,
     imageUrl: '',
     isfavorate: false,
@@ -279,7 +279,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                           id: newMedicine.id,
                           category: newMedicine.manufacturer,
                           manufacturer: newMedicine.manufacturer,
-                          quantityAvailable: int.parse(value).toInt(),
+                          quantityAvailable: double.parse(value).toDouble(),
                           expiryDate: newMedicine.expiryDate,
                           price: newMedicine.price,
                           imageUrl: newMedicine.imageUrl,
@@ -312,7 +312,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                           category: newMedicine.manufacturer,
                           manufacturer: newMedicine.manufacturer,
                           quantityAvailable: newMedicine.quantityAvailable,
-                          expiryDate: DateTime.parse(value),
+                          expiryDate:(value).toString(),
                           price: newMedicine.price,
                           imageUrl: newMedicine.imageUrl,
                           isfavorate: newMedicine.isfavorate,

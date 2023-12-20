@@ -111,34 +111,48 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
     try {
       if (_authMode == AuthMode.Login) {
         // Log user in
-        await Provider.of<Auth>(context, listen: false).login(
-          _authData['phoneNumber']!,
-          _authData['password']!,
-        );
-      } else {
-        // Sign user up
-        String responseMessage = await Provider.of<Auth>(context, listen: false).signUp(
+        String responseMessage = await Provider.of<Auth>(context, listen: false)
+            .login(
           _authData['phoneNumber']!,
           _authData['password']!,
         );
         if (responseMessage.startsWith('success')) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(responseMessage),
+              duration: Duration(seconds: 2), // Adjust the duration as needed
+            ),
+          );
           Navigator.of(context).pushReplacementNamed('/HomePageDesktop');
         }
         else if (responseMessage.startsWith('error')) {
-          // Registration failed
           _showErrorDialog(responseMessage);
         }
       }
+    // } else {
+    // // Sign user up
+    // String responseMessage = await Provider.of<Auth>(context, listen: false).signUp(
+    // _authData['phoneNumber']!,
+    // _authData['password']!,
+    // );
+    // if (responseMessage.startsWith('success')) {
+    // Navigator.of(context).pushReplacementNamed('/HomePageDesktop');
+    // }
+    // else if (responseMessage.startsWith('error')) {
+    // // Registration failed
+    // _showErrorDialog(responseMessage);
+    // }
+    // }
     }
     catch (error) {
-      const errorMessage =
-          'Could not authenticate you. Please try again later.';
-      print(error.toString());
-      _showErrorDialog(errorMessage);
+    const errorMessage =
+    'Could not authenticate you. Please try again later.';
+    print(error.toString());
+    _showErrorDialog(errorMessage);
     }
 
     setState(() {
-      _isLoading = false;
+    _isLoading = false;
     });
   }
 
@@ -246,20 +260,20 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
                     child: Text(_authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP'),
                   )
 
-                ,TextButton(
-                  onPressed: _switchAuthMode,
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                      EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
-
-                    ),
-                    textStyle: MaterialStateProperty.all<TextStyle>(
-                      TextStyle(color: Theme.of(context).primaryColor),
-                    ),
-                  ),
-
-                  child: Text('${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
-                ),
+                // ,TextButton(
+                //   onPressed: _switchAuthMode,
+                //   style: ButtonStyle(
+                //     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                //       EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
+                //
+                //     ),
+                //     textStyle: MaterialStateProperty.all<TextStyle>(
+                //       TextStyle(color: Theme.of(context).primaryColor),
+                //     ),
+                //   ),
+                //
+                //   child: Text('${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
+                // ),
 
 
               ],

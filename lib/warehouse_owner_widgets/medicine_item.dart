@@ -26,11 +26,11 @@ class WebMedicineItem extends StatelessWidget {
           },
           child: Image.network(
             med.imageUrl,
-            fit: BoxFit.cover,
+            fit: BoxFit.contain,
           ),
         ),
         footer: GridTileBar(
-          backgroundColor: Colors.black87,
+          backgroundColor: Colors.blueAccent,
           title: Text(
             med.commercialName,
             textAlign: TextAlign.center,

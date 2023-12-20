@@ -18,7 +18,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
   var _showOnlyFavorites = false;
   var isInit = true;
   TextEditingController _searchController = TextEditingController();
-  String _searchQuery = '';
+  String searchQuery = '';
 
   @override
   void didChangeDependencies() {
@@ -50,7 +50,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
         // Handle category selection
         setState(() {
           // Update your filtering logic here
-          _searchQuery = selectedCategory;
+          searchQuery = selectedCategory;
         });
       },
       itemBuilder: (BuildContext context) {
@@ -99,23 +99,23 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           },
                           child: Tooltip(
                             message: 'Add a new medicine',
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.add_circle,
-                                size: 45,
-                                color: Colors.white,
-                              ),
-                              SizedBox(width: 10),
-                              Text(
-                                "Add New Medicine",
-                                style: TextStyle(
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.add_circle,
+                                  size: 45,
                                   color: Colors.white,
-                                  fontSize: 25,
                                 ),
-                              ),
-                            ],
-                          ),
+                                SizedBox(width: 10),
+                                Text(
+                                  "Add New Medicine",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 25,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -167,7 +167,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           onSuggestionSelected: (suggestion) {
                             // Handle the selection of a suggestion
                             setState(() {
-                              _searchQuery = suggestion;
+                              searchQuery = suggestion;
                             });
                           },
                         ),
@@ -179,9 +179,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                         child: IconButton(
                           icon: Icon(Icons.search, color: Colors.black),
                           onPressed: () {
-                            // Perform search using _searchQuery
-                            // You can implement your search logic here
-                            print('Searching for: $_searchQuery');
+                            print('Searching for: $searchQuery');
                           },
                         ),
                       ),
@@ -228,29 +226,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Row(
-                            children:<Widget> [
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                                decoration: BoxDecoration(
-                                  color: Colors.lightBlueAccent,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Text(
-                                  'choose category : ',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                              buildCategoryFilterButton(),
-                            ],
-                          ),
-              SizedBox(height: 40,)
-           ,   SizedBox(
+                          SizedBox(height: 40,)
+                          ,   SizedBox(
                             height: 1500,
-                            child: WebMedicineGride(),
+                            child: WebMedicineGride(searchQuery),
                           ),
                         ],
                       ),
