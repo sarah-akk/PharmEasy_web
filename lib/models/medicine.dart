@@ -5,7 +5,7 @@ class Medicine with ChangeNotifier {
   final  int id;
   final String scientificName;
   final String commercialName;
-  final String category;
+  final int category;
   final String manufacturer;
   final double quantityAvailable;
   final String expiryDate;

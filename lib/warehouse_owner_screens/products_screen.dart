@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:provider/provider.dart';
+import '../models/medicines.dart';
 import '../warehouse_owner_widgets/medicine_gride.dart';
 import '../warehouse_owner_widgets/drawer.dart';
 import 'add_medicine.dart';
@@ -15,20 +17,31 @@ class ProductsScreen extends StatefulWidget {
 }
 
 class _ProductsScreenState extends State<ProductsScreen> {
+
   var _showOnlyFavorites = false;
   var isInit = true;
   TextEditingController _searchController = TextEditingController();
+
   String searchQuery = '';
+  String SearchQuery = '';
 
-  @override
-  void didChangeDependencies() {
-    if (isInit) {
-      // Provider.of<MedicinesList>(context).fetchAndSetProducts();
-    }
-    isInit = false;
 
-    super.didChangeDependencies();
+  void initState() {
+    super.initState();
+    // Add a listener to _searchController
+    _searchController.addListener(_onSearchTextChanged);
   }
+
+  // Listener callback
+  void _onSearchTextChanged() {
+    setState(() {
+      SearchQuery = _searchController.text;
+    });
+    if (SearchQuery.isEmpty) {
+     Provider.of<MedicinesList>(context, listen: false).fetchMedicines(0);
+    }
+  }
+
   PopupMenuItem<String> buildPopupMenuItem(String category) {
     return PopupMenuItem<String>(
       value: category,
@@ -139,7 +152,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           textFieldConfiguration: TextFieldConfiguration(
                             controller: _searchController,
                             decoration: InputDecoration(
-                              hintText: 'Search for medicines / categories ...',
+                              hintText: 'Search for medicines .. ',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                                 borderSide: BorderSide(
@@ -150,14 +163,20 @@ class _ProductsScreenState extends State<ProductsScreen> {
                             ),
                           ),
                           suggestionsCallback: (pattern) async {
-                            return [
-                              'Neurological medications',
-                              'Heart medications',
-                              'Anti-inflammatories',
-                              'Food supplements',
-                              'Painkillers',
-                            ].where((category) =>
-                                category.toLowerCase().contains(pattern.toLowerCase()));
+
+                            await Provider.of<MedicinesList>(context, listen: false).getSearch(pattern);
+
+                            // Get the list of suggestions from the medicines list
+                            List<String> suggestions = Provider.of<MedicinesList>(context, listen: false)
+                                .medicines
+                                ?.where((medicine) =>
+                                medicine.commercialName
+                                    .toLowerCase()
+                                    .startsWith(pattern.toLowerCase()))
+                                ?.map((medicine) => medicine.commercialName)
+                                ?.toList() ?? [];
+
+                            return suggestions;
                           },
                           itemBuilder: (context, suggestion) {
                             return ListTile(
@@ -167,8 +186,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           onSuggestionSelected: (suggestion) {
                             // Handle the selection of a suggestion
                             setState(() {
-                              searchQuery = suggestion;
+                              SearchQuery = suggestion;
                             });
+                            _searchController.text = suggestion;
                           },
                         ),
                       ),
@@ -179,7 +199,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
                         child: IconButton(
                           icon: Icon(Icons.search, color: Colors.black),
                           onPressed: () {
-                            print('Searching for: $searchQuery');
                           },
                         ),
                       ),
@@ -229,7 +248,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           SizedBox(height: 40,)
                           ,   SizedBox(
                             height: 1500,
-                            child: WebMedicineGride(searchQuery),
+                            child: WebMedicineGride(searchQuery,SearchQuery),
                           ),
                         ],
                       ),

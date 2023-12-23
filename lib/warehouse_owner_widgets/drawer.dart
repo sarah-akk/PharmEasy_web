@@ -14,15 +14,15 @@ class mydrawer extends StatelessWidget {
            padding: const EdgeInsets.all(15.0),
            child: Stack(
              children: <Widget>[
-               Text('OnLine pharmacy Store',textAlign:TextAlign.start,style: TextStyle(
-                 fontSize: 25,
+               Text('PharmEasy',textAlign:TextAlign.start,style: TextStyle(
+                 fontSize: 28 ,
                  foreground: Paint()
                    ..style = PaintingStyle.stroke
                    ..strokeWidth = 4
                    ..color = Colors.black54,),
                ),
-               Text('OnLine pharmacy Store', textAlign:TextAlign.start, style: TextStyle(
-                 fontSize: 25,
+               Text('PharmEasy', textAlign:TextAlign.start, style: TextStyle(
+                 fontSize: 28,
                  color: Colors.white,
                ),
                ),

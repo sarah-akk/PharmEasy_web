@@ -15,6 +15,7 @@ class MedicineAddScreen extends StatefulWidget {
 }
 
 class _MedicineAddScreenState extends State<MedicineAddScreen> {
+
   final Scientific_Name_Node = FocusNode();
   final Commercial_Name_Node = FocusNode();
   final Category_Node = FocusNode();
@@ -28,11 +29,21 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
 
   var _isloading = false;
 
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  final Map<String, int> categoryMap = {
+    'Neurological medications': 1,
+    'Heart medications': 2,
+    'Anti-inflammatories': 3,
+    'Food supplements': 4,
+    'Painkillers': 5,
+  };
+
   var newMedicine = Medicine(
     id: 0,
     scientificName: '',
     commercialName: '',
-    category: '',
+    category: 0 ,
     manufacturer: '',
     quantityAvailable: 0,
     expiryDate: '',
@@ -44,7 +55,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
   var _initValues = {
     'scientificName': '',
     'commercialName': '',
-    'Category': '',
+    'Category': 0 ,
     'manufacturer': '',
     'quantityAvailable': 0,
     'expiryDate': DateTime.now(),
@@ -52,6 +63,8 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
     'imageUrl': '',
     'isfavorate':false,
   };
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   Future<void> _saveForm() async {
     final isValid = _form.currentState?.validate();
@@ -84,6 +97,8 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
     });
     Navigator.of(context).pushReplacementNamed(ProductsScreen.routeName);
   }
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   @override
   Widget build(BuildContext context) {
@@ -206,11 +221,13 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                     },
                     onSaved: (value) {
                       if (value != null) {
+                        int categoryValue = categoryMap[value] ?? 0;
+
                         newMedicine = Medicine(
                           scientificName: newMedicine.scientificName,
                           commercialName: newMedicine.commercialName,
                           id: newMedicine.id,
-                          category: value.toString(),
+                          category: categoryValue,
                           manufacturer: newMedicine.manufacturer,
                           quantityAvailable: newMedicine.quantityAvailable,
                           expiryDate: newMedicine.expiryDate,
@@ -243,7 +260,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                           scientificName: newMedicine.scientificName,
                           commercialName: newMedicine.commercialName,
                           id: newMedicine.id,
-                          category: newMedicine.manufacturer,
+                          category: newMedicine.category,
                           manufacturer: value.toString(),
                           quantityAvailable: newMedicine.quantityAvailable,
                           expiryDate: newMedicine.expiryDate,
@@ -277,7 +294,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                           scientificName: newMedicine.scientificName,
                           commercialName: newMedicine.commercialName,
                           id: newMedicine.id,
-                          category: newMedicine.manufacturer,
+                          category: newMedicine.category,
                           manufacturer: newMedicine.manufacturer,
                           quantityAvailable: double.parse(value).toDouble(),
                           expiryDate: newMedicine.expiryDate,
@@ -309,7 +326,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                           scientificName: newMedicine.scientificName,
                           commercialName: newMedicine.commercialName,
                           id: newMedicine.id,
-                          category: newMedicine.manufacturer,
+                          category: newMedicine.category,
                           manufacturer: newMedicine.manufacturer,
                           quantityAvailable: newMedicine.quantityAvailable,
                           expiryDate:(value).toString(),
@@ -342,7 +359,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                           scientificName: newMedicine.scientificName,
                           commercialName: newMedicine.commercialName,
                           id: newMedicine.id,
-                          category: newMedicine.manufacturer,
+                          category: newMedicine.category,
                           manufacturer: newMedicine.manufacturer,
                           quantityAvailable: newMedicine.quantityAvailable,
                           expiryDate: newMedicine.expiryDate,
@@ -375,7 +392,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                           scientificName: newMedicine.scientificName,
                           commercialName: newMedicine.commercialName,
                           id: newMedicine.id,
-                          category: newMedicine.manufacturer,
+                          category: newMedicine.category,
                           manufacturer: newMedicine.manufacturer,
                           quantityAvailable: newMedicine.quantityAvailable,
                           expiryDate: newMedicine.expiryDate,

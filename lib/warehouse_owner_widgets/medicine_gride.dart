@@ -9,8 +9,9 @@ import 'medicine_item.dart';
 
 class WebMedicineGride extends StatefulWidget {
 
+  String SearchQuery;
   String searchQuery;
-  WebMedicineGride(this.searchQuery);
+  WebMedicineGride(this.searchQuery, this.SearchQuery);
 
   @override
   State<WebMedicineGride> createState() => _WebMedicineGrideState();
@@ -30,6 +31,12 @@ class _WebMedicineGrideState extends State<WebMedicineGride> {
 
     await  Provider.of<MedicinesList>(context,listen: false).fetchMedicines(categoryNumber);
   }
+
+  Future<void> getsearch(BuildContext context, String searchQuery) async {
+    await Provider.of<MedicinesList>(context, listen: false)
+        .getSearch(searchQuery);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +86,15 @@ class _WebMedicineGrideState extends State<WebMedicineGride> {
 SizedBox(height: 40,),
         Expanded(
           child: RefreshIndicator(
-            onRefresh: () => refrechCategoryProducts(context),
+            onRefresh: ()   {
+              // Call the appropriate method based on the presence of a search query
+              if (widget.SearchQuery.isEmpty) {
+                return refrechCategoryProducts(context);
+              } else {
+                widget.SearchQuery='';
+                return getsearch(context,widget.SearchQuery);
+              }
+            },
             child: productsData.items.isEmpty
                 ? Center(child: CircularProgressIndicator())
 

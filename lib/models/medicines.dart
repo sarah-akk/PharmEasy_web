@@ -8,6 +8,12 @@ class MedicinesList with ChangeNotifier {
 
   int id=0;
   List<Medicine> medicines = [];
+  bool _isLoading = false;
+
+  bool get isLoading {
+    return _isLoading;
+  }
+
   final String? authToken;
   final String? userId;
 
@@ -44,9 +50,9 @@ class MedicinesList with ChangeNotifier {
             id: medData['id'],
             scientificName: medData['scientific_name'],
             commercialName: medData['commercial_name'],
-            category: medData['categroy'],
+            category: medData['category_id'],
             manufacturer: medData['manufacture_company'],
-            quantityAvailable: medData['available_quantity'],
+            quantityAvailable: medData['available_quantity'].toDouble(),
             expiryDate: medData['expiration_date'],
             price: medData['price'].toDouble(),
             imageUrl: medData['photo'],
@@ -62,7 +68,7 @@ class MedicinesList with ChangeNotifier {
     }
     else
       {
-        var url = Uri.parse('http://127.0.0.1:8000/api/medicines_category_Id/{categoryId}');
+        var url = Uri.parse('http://127.0.0.1:8000/api/medicines_category_Id/$categoryNumber');
 
         try {
           final response = await http.get(
@@ -76,15 +82,16 @@ class MedicinesList with ChangeNotifier {
               id: medData['id'],
               scientificName: medData['scientific_name'],
               commercialName: medData['commercial_name'],
-              category: medData['categroy'],
+              category:(medData['category_id']),
               manufacturer: medData['manufacture_company'],
-              quantityAvailable: medData['available_quantity'],
+              quantityAvailable: medData['available_quantity'].toDouble(),
               expiryDate: medData['expiration_date'],
               price: medData['price'].toDouble(),
               imageUrl: medData['photo'],
               isfavorate: medData['favorite'] == 1,
             );
           }).toList();
+
           print('medicinesData lenght : ${medicinesData.length}');
           medicines = medicinesData;
           notifyListeners();
@@ -95,23 +102,9 @@ class MedicinesList with ChangeNotifier {
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   Future<void> addMedicine(Medicine medicine) async {
 
-    int categoryID =0;
-    if(medicine.category=='Neurological medications')
-      categoryID=1;
-    else if(medicine.category=='Heart medications')
-      categoryID=2;
-    else if(medicine.category=='Anti-inflammatories')
-      categoryID=3;
-    else if(medicine.category=='Food supplements')
-      categoryID=4;
-    else
-      categoryID=5;
-
-    print(categoryID);
     var url = Uri.parse('http://127.0.0.1:8000/api/store');
     try {
       final response = await http.post(url,
@@ -120,7 +113,7 @@ class MedicinesList with ChangeNotifier {
           {
             'scientific_name': medicine.scientificName,
             'commercial_name' : medicine.commercialName,
-            'categroy': medicine.category,
+            'category_id':medicine.category,
             'manufacture_company': medicine.manufacturer,
             'available_quantity' : medicine.quantityAvailable,
             'expiration_date': medicine.expiryDate,
@@ -153,10 +146,54 @@ class MedicinesList with ChangeNotifier {
     }
   }
 
-}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Future<void> getSearch(String searchQuery) async {
 
+  print(searchQuery);
+  var url = Uri.parse(
+      'http://127.0.0.1:8000/api/search');
+  try {
+    final response = await http.post(
+        url, headers: {'Content-Type': 'application/json'},
+        body: json.encode(
+            {
+              'name': searchQuery,
+            }
+        )
+    );
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonDataMap = json.decode(response.body);
+      if (jsonDataMap['data'] != null &&
+          jsonDataMap['data'] is Map<String, dynamic>) {
+        Map<String, dynamic> data = jsonDataMap['data'];
+
+        Medicine medicine = Medicine(
+          id: data['id'],
+          scientificName: data['scientific_name'],
+          commercialName: data['commercial_name'],
+          category: data['category_id'],
+          manufacturer: data['manufacture_company'],
+          quantityAvailable: data['available_quantity'].toDouble(),
+          expiryDate: data['expiration_date'],
+          price: data['price'].toDouble(),
+          imageUrl: data['photo'],
+          isfavorate: data['favorite'] == 1,
+        );
+
+        medicines.clear();
+        medicines.add(medicine);
+        _isLoading = false;
+        notifyListeners();
+      }
+    }
+  }
+  catch (error) {
+    throw (error);
+  }
+}
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////
 //   Future<void> fetchAndSetMedicines([bool filterByUser = false]) async {
 //
 //     //final filterString = filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';

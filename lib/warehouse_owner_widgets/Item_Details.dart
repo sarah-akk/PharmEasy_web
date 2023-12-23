@@ -17,6 +17,7 @@ class MedicineDetailsCard extends StatelessWidget {
       listen: false,
     ).findById(medicineId);
 
+
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
@@ -28,6 +29,20 @@ class MedicineDetailsCard extends StatelessWidget {
   }
 
   Widget contentBox(BuildContext context, Medicine loadedMedicine) {
+
+    String category;
+    if(loadedMedicine.category==1)
+      category='Neurological medication';
+    else if (loadedMedicine.category==2)
+      category='Heart medications';
+    else if(loadedMedicine.category==3)
+      category='Anti-inflammatories';
+    else if(loadedMedicine.category==4)
+      category='Food supplements';
+    else
+      category='Painkillers';
+
+
     return Container(
       height: 500,
       width: 500,
@@ -59,7 +74,7 @@ class MedicineDetailsCard extends StatelessWidget {
           SizedBox(height: 8),
           Text('Commercial Name: ${loadedMedicine.commercialName}'),
           SizedBox(height: 8),
-          Text('Category: ${loadedMedicine.category}'),
+          Text('Category: ${category}' ),
           SizedBox(height: 8),
           Text('Manufacturer: ${loadedMedicine.manufacturer}'),
           SizedBox(height: 8),
