@@ -115,7 +115,6 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
       child:  Stack(
         fit: StackFit.expand,
         children: [
-
       Column(
         mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[

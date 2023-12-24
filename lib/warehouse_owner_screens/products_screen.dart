@@ -164,6 +164,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           ),
                           suggestionsCallback: (pattern) async {
 
+                            if (pattern.isEmpty) {
+                              return <String>[]; // Return an empty list when the pattern is empty
+                            }
+
                             await Provider.of<MedicinesList>(context, listen: false).getSearch(pattern);
 
                             // Get the list of suggestions from the medicines list

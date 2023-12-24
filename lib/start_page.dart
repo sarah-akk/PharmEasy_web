@@ -12,7 +12,14 @@ class StartPage extends StatelessWidget{
     Widget build(BuildContext context) {
 
     return Scaffold(
-      body: Row(
+      body: Container(
+        decoration: BoxDecoration(
+        image: DecorationImage(
+        image: AssetImage('assets/images/pharmeasy.png'), // replace with your image path
+    fit: BoxFit.contain,
+    ),
+    ),
+    child: Row(
         children: [
           // Left side with text
           Expanded(
@@ -23,23 +30,8 @@ class StartPage extends StatelessWidget{
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Welcome to the Medical Warehouse',
-                    style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.deepPurpleAccent,
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    'Your trusted source for medical supplies.',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black54,
-                    ),
-                  ),
-                  SizedBox(height: 100),
+
+                  SizedBox(height: 400,width: 200,),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pushNamed(WebAuthScreen.routeName);
@@ -55,20 +47,9 @@ class StartPage extends StatelessWidget{
           ),
 
           // Right side with image
-          Expanded(
-            flex: 3,
-            child: Container(
-              height: 1200,
-              width: 1200,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/Screenshot 2023-12-12 035745.jpg',), // replace with your image path
 
-                ),
-              ),
-            ),
-          ),
         ],
+      ),
       ),
     );
   }

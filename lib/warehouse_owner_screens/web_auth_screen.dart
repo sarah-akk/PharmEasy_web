@@ -13,7 +13,13 @@ class WebAuthScreen extends StatelessWidget {
 
     return Scaffold(
 
-      body:Stack(
+      body:Container(
+        decoration: BoxDecoration(
+        image: DecorationImage(
+        image: AssetImage('assets/images/pharmeasy2.png'), // replace with your image path
+    fit: BoxFit.cover,
+    ),
+    ),child: Stack(
         fit: StackFit.expand,
         children: [
           Column(
@@ -37,7 +43,9 @@ class WebAuthScreen extends StatelessWidget {
               ),
             ],
           ),]
-        ,),);
+        ,),
+      ),
+    );
   }
 }
 
