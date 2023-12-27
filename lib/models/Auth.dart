@@ -16,12 +16,6 @@ class Auth with ChangeNotifier{
   String? get UserId{
     return userId;
   }
-  String? get tokenn{
-    if(expireyDate!=null && expireyDate!.isAfter(DateTime.now()) && token!=null){
-      return token;
-    }
-    return null;
-  }
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -63,12 +57,13 @@ class Auth with ChangeNotifier{
         body: jsonEncode({'phone': phone, 'password': password}),
         headers: {'Content-Type': 'application/json'},
     );
-      print(response.body);
       final Map<String, dynamic> data = json.decode(response.body);
 
       if (response.statusCode == 200 && data['message']=='welcome.' ) {
         // Successful login
         final Map<String, dynamic> data = json.decode(response.body);
+        token = data['data'];
+        print(token);
         return 'success: ${data['message']}';
       } else {
         // Handle login failure
@@ -93,47 +88,30 @@ class Auth with ChangeNotifier{
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-  Future<bool> tryAutoLogin() async{
-    final prefs = await SharedPreferences.getInstance();
-    if(!prefs.containsKey('userData'))
-    {
-      return false;
-    }
-    final extactedUserdata = json.decode(prefs.getString('userData')!);
-    final expiryDate = DateTime.parse(extactedUserdata['expirydate']);
-    //print(expireyDate!.isBefore(DateTime.now()));
-    // if(expireyDate!.isBefore(DateTime.now())){
-    //   return false;
-    // }
-    token = extactedUserdata['token'];
-    userId = extactedUserdata['userId'];
-    expireyDate = expiryDate;
-    notifyListeners();
-    autoLogOut();
-    return true;
-  }
+  Future<String> logoutUser() async {
+    var url = Uri.parse('http://10.0.2.2:8000/logout');
 
-  Future<void> logOut() async {
-    token=null;
-    userId=null;
-    expireyDate=null;
-    if(authTimer!=null){
-      {
-        authTimer!.cancel();
-        authTimer = null;
+    try {
+      final response = await http.get(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': '$token',
+        },
+      );
+
+      final Map<String, dynamic> data = json.decode(response.body);
+
+      if (response.statusCode == 200 && data['message'] == 'user log out successfully') {
+        return 'success: ${data['message']}';
+      } else {
+        // Handle logout failure
+        return 'error: ${data['message']}';
       }
+    } catch (error) {
+      throw error;
     }
-    notifyListeners();
-    final prefs = await SharedPreferences.getInstance();
-    prefs.clear();
   }
 
-  void autoLogOut(){
-    if(authTimer!=null){
-      authTimer!.cancel();
-    }
-    final timeToExpiry = expireyDate!.difference(DateTime.now()).inSeconds;
-    authTimer = Timer(Duration(seconds: timeToExpiry), logOut);
-  }
 
 }

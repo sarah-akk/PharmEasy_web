@@ -45,6 +45,8 @@ class MedicinesList with ChangeNotifier {
         Map<String, dynamic> jsonDataMap = json.decode(response.body);
         List<dynamic> data = jsonDataMap['data'];
 
+        print(jsonDataMap);
+
         List<Medicine> medicinesData = data.map((medData) {
           return Medicine(
             id: medData['id'],
@@ -52,11 +54,11 @@ class MedicinesList with ChangeNotifier {
             commercialName: medData['commercial_name'],
             category: medData['category_id'],
             manufacturer: medData['manufacture_company'],
-            quantityAvailable: medData['available_quantity'].toDouble(),
+            quantityAvailable: medData['available_quantity'],
             expiryDate: medData['expiration_date'],
             price: medData['price'].toDouble(),
             imageUrl: medData['photo'],
-            isfavorate: medData['favorite'] == 1,
+            isfavorate: false,
           );
         }).toList();
         print('medicinesData lenght : ${medicinesData.length}');
@@ -84,11 +86,11 @@ class MedicinesList with ChangeNotifier {
               commercialName: medData['commercial_name'],
               category:(medData['category_id']),
               manufacturer: medData['manufacture_company'],
-              quantityAvailable: medData['available_quantity'].toDouble(),
+              quantityAvailable: medData['available_quantity'],
               expiryDate: medData['expiration_date'],
-              price: medData['price'].toDouble(),
+              price: medData['price'],
               imageUrl: medData['photo'],
-              isfavorate: medData['favorite'] == 1,
+              isfavorate: false,
             );
           }).toList();
 
@@ -105,24 +107,29 @@ class MedicinesList with ChangeNotifier {
 
   Future<void> addMedicine(Medicine medicine) async {
 
+    print('ss$authToken');
+
     var url = Uri.parse('http://127.0.0.1:8000/api/store');
     try {
       final response = await http.post(url,
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $authToken',
+        },
           body: json.encode(
           {
             'scientific_name': medicine.scientificName,
             'commercial_name' : medicine.commercialName,
-            'category_id':medicine.category,
+            'category_id': medicine.category,
             'manufacture_company': medicine.manufacturer,
             'available_quantity' : medicine.quantityAvailable,
             'expiration_date': medicine.expiryDate,
             'price' : medicine.price,
             'photo':medicine.imageUrl,
-            'favorite':medicine.isfavorate,
           }
       ),
       );
+      print(response.body);
     // print(response.statusCode);
     // print(response.body);
     final newMedicine = Medicine(
@@ -135,7 +142,7 @@ class MedicinesList with ChangeNotifier {
         expiryDate: medicine.expiryDate,
         price : medicine.price,
         imageUrl:medicine.imageUrl,
-        isfavorate:medicine.isfavorate,
+        isfavorate:false,
       );
       medicines.add(newMedicine);
       notifyListeners();

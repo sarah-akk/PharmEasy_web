@@ -35,7 +35,7 @@ class _TopBarState extends State<TopBar> {
               Stack(
                 children: [
                   TextButton.icon(
-                    icon: Icon(Icons.notifications),
+                    icon: Icon(Icons.notifications_sharp),
                     label: Text('Notifications'),
                     onPressed: () {},
                   ),
