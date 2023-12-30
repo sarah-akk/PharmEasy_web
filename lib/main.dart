@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'models/Auth.dart';
 import 'models/Language.dart';
 import 'models/medicines.dart';
+import 'models/orders.dart';
 import 'start_page.dart';
 import 'warehouse_owner_screens/web_auth_screen.dart';
 
@@ -38,6 +39,14 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider<Language>(
               create: (context) => Language(),),
+            ChangeNotifierProxyProvider<Auth,Orders>(
+              create: (_) => Orders('','',[]), // Create your Products instance here.
+              update: (ctx, auth, previousOrder) => Orders(
+                auth.token,
+                auth.userId,
+                previousOrder == null ? [] : previousOrder.oorders,
+              ),
+            ),
           ],
           child: MaterialApp(
             theme: ThemeData(

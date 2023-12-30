@@ -32,15 +32,21 @@ class MedicinesList with ChangeNotifier {
   }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   Future<void> fetchMedicines(int categoryNumber) async {
 
     print('categoryNumber : ${categoryNumber}');
+    print('aa$authToken');
 
     if(categoryNumber == 0) {
       var url = Uri.parse('http://127.0.0.1:8000/api/showAll');
       try {
         final response = await http.get(
-          url, headers: {'Content-Type': 'application/json'},);
+          url,  headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $authToken',
+        },
+        );
 
         Map<String, dynamic> jsonDataMap = json.decode(response.body);
         List<dynamic> data = jsonDataMap['data'];
@@ -74,8 +80,11 @@ class MedicinesList with ChangeNotifier {
 
         try {
           final response = await http.get(
-            url, headers: {'Content-Type': 'application/json'},);
-
+            url,   headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $authToken',
+          },
+          );
           Map<String, dynamic> jsonDataMap = json.decode(response.body);
           List<dynamic> data = jsonDataMap['data'];
 
@@ -162,7 +171,10 @@ Future<void> getSearch(String searchQuery) async {
       'http://127.0.0.1:8000/api/search');
   try {
     final response = await http.post(
-        url, headers: {'Content-Type': 'application/json'},
+        url,   headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $authToken',
+        },
         body: json.encode(
             {
               'name': searchQuery,
@@ -187,7 +199,7 @@ Future<void> getSearch(String searchQuery) async {
           imageUrl: data['photo'],
           isfavorate: data['favorite'] == 1,
         );
-
+       print(medicine);
         medicines.clear();
         medicines.add(medicine);
         _isLoading = false;
