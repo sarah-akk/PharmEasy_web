@@ -5,7 +5,7 @@ import 'custom_text.dart';
 class CardItem extends StatelessWidget {
   final String subtitle;
   final String title;
-  final String value;
+  final double value;
   final Color color1;
   final Color color2;
   final IconData icon;
@@ -68,7 +68,7 @@ class CardItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomText(
-                          text: value,
+                          text: value.toString(),
                           size: titleSize + 18,
                           weight: FontWeight.bold,
                           color: Colors.white,

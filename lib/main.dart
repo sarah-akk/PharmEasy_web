@@ -21,31 +21,33 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return
       MultiProvider(
           providers: [
 
             ChangeNotifierProvider(create: (_) => Auth()),
 
-            ChangeNotifierProxyProvider<Auth,MedicinesList>(
-              create: (_) => MedicinesList('','',[]), // Create your Products instance here.
-              update: (ctx, auth, previousProducts) => MedicinesList(
-                auth.token,
-                auth.userId,
-                previousProducts == null ? [] : previousProducts.medicines,
-              ),
+            ChangeNotifierProxyProvider<Auth, MedicinesList>(
+              create: (_) => MedicinesList('', '', []),
+              // Create your Products instance here.
+              update: (ctx, auth, previousProducts) =>
+                  MedicinesList(
+                    auth.token,
+                    auth.userId,
+                    previousProducts == null ? [] : previousProducts.medicines,
+                  ),
             ),
             ChangeNotifierProvider<Language>(
               create: (context) => Language(),),
-            ChangeNotifierProxyProvider<Auth,Orders>(
-              create: (_) => Orders('','',[]), // Create your Products instance here.
-              update: (ctx, auth, previousOrder) => Orders(
-                auth.token,
-                auth.userId,
-                previousOrder == null ? [] : previousOrder.oorders,
-              ),
+            ChangeNotifierProxyProvider<Auth, Orders>(
+              create: (_) => Orders('', '', []),
+              // Create your Products instance here.
+              update: (ctx, auth, previousOrder) =>
+                  Orders(
+                    auth.token,
+                    auth.userId,
+                    previousOrder == null ? [] : previousOrder.oorders,
+                  ),
             ),
           ],
           child: MaterialApp(
@@ -55,23 +57,21 @@ class MyApp extends StatelessWidget {
               // Add more theme properties
             ),
             debugShowCheckedModeBanner: false,
-            home:StartPage(),
+            home: StartPage(),
 
             routes: {
-              StartPage.routeName:(ctx)=>StartPage(),
+              StartPage.routeName: (ctx) => StartPage(),
               WebAuthScreen.routeName: (ctx) => WebAuthScreen(),
-              HomePage.routeName : (ctx) => HomePage(),
-              ProductsScreen.routeName:(ctx)=>ProductsScreen(),
-              MedicineAddScreen.routeName:(ctx)=>MedicineAddScreen(),
-              MedicineDetailsCard.routeName:(ctx)=>MedicineDetailsCard(),
-              OrdersScreen.routeName:(ctx)=>OrdersScreen(),
+              HomePage.routeName: (ctx) => HomePage(),
+              ProductsScreen.routeName: (ctx) => ProductsScreen(),
+              MedicineAddScreen.routeName: (ctx) => MedicineAddScreen(),
+              MedicineDetailsCard.routeName: (ctx) => MedicineDetailsCard(),
+              OrdersScreen.routeName: (ctx) => OrdersScreen(),
 
             },
 
 
-
           )
       );
-
   }
 }

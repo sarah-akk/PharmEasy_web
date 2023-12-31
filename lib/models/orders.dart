@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../warehouse_owner_screens/Dashboard.dart';
 import 'cart.dart';
+import 'package:intl/intl.dart';  // Import the intl package for date formatting
 
 class OrderItem {
   final int id;
@@ -31,11 +33,17 @@ class Orders with ChangeNotifier {
   Orders(this.authtoken, this.userid, this.oorders) {
     notifyListeners();
   }
+
   notifyListeners();
 
   List<OrderItem> get orders {
     return [...oorders];
   }
+
+  int  get orderslenght {
+    return [...oorders].length;
+  }
+
 
   double calculateTotalAmount(List<CartItem> products) {
     return products.fold(
@@ -92,14 +100,16 @@ class Orders with ChangeNotifier {
 
   Future<void> changeOrderStatus(int orderId, String newStatus) async {
     final apiUrl = 'http://127.0.0.1:8000/api/changeOrder/$orderId';
-    print('orderId $orderId newStatus $newStatus');// Update the URL with your actual endpoint
+    print(
+        'orderId $orderId newStatus $newStatus'); // Update the URL with your actual endpoint
 
     try {
       final response = await http.put(
         Uri.parse(apiUrl),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer $authtoken', // Include your authentication token here
+          'Authorization': 'Bearer $authtoken',
+          // Include your authentication token here
         },
         body: jsonEncode({
           'status': newStatus,
@@ -109,7 +119,8 @@ class Orders with ChangeNotifier {
       if (response.statusCode == 200) {
         print('Order status changed successfully');
       } else {
-        print('Failed to change order status. Status code: ${response.statusCode}');
+        print('Failed to change order status. Status code: ${response
+            .statusCode}');
         print('Response body: ${response.body}');
       }
     } catch (error) {
@@ -120,8 +131,8 @@ class Orders with ChangeNotifier {
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   Future<void> changePaymentStatus(int orderId, bool newPaymentStatus) async {
-
-    print('orderId $orderId newStatus $newPaymentStatus');// Update the URL with your actual endpoint
+    print(
+        'orderId $orderId newStatus $newPaymentStatus'); // Update the URL with your actual endpoint
 
     final apiUrl = 'http://127.0.0.1:8000/api/changeOrderPaid/$orderId'; // Replace with your actual API endpoint
 
@@ -130,7 +141,8 @@ class Orders with ChangeNotifier {
         Uri.parse(apiUrl),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer $authtoken', // Include your authentication token here
+          'Authorization': 'Bearer $authtoken',
+          // Include your authentication token here
         },
         body: jsonEncode({
           'paid_status': newPaymentStatus,
@@ -140,12 +152,81 @@ class Orders with ChangeNotifier {
       if (response.statusCode == 200) {
         print('Payment status changed successfully');
       } else {
-        print('Failed to change payment status. Status code: ${response.statusCode}');
+        print('Failed to change payment status. Status code: ${response
+            .statusCode}');
         print('Response body: ${response.body}');
       }
     } catch (error) {
       print('Error occurred while changing payment status: $error');
     }
   }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  Future<List<OrderDetails>> fetchOrdersreport() async {
+
+    DateTime startDate = DateTime(2023, 1, 1);
+    DateTime endDate = DateTime(2023, 12, 31);
+
+
+    final response = await http.post(
+      Uri.parse('http://127.0.0.1:8000/api/report'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $authtoken',
+      },
+      body: jsonEncode({
+        'start_date': DateFormat('yyyy-MM-dd').format(startDate),
+        'end_date': DateFormat('yyyy-MM-dd').format(endDate),
+      })
+    );
+    print('Response Status Code: ${response.statusCode}');
+    print('Response Body: ${response.body}');
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonData = json.decode(response.body);
+      print(jsonData);
+      final List<OrderDetails> orderDetailsList =
+      jsonData.map((data) => OrderDetails.fromJson(data)).toList();
+      print(orderDetailsList);
+      return orderDetailsList;
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  Future<List<OrderDetails>> fetchSalesreport() async {
+
+    DateTime startDate = DateTime(2023, 1, 1);
+    DateTime endDate = DateTime(2023, 12, 31);
+
+
+    final response = await http.post(
+        Uri.parse('http://127.0.0.1:8000/api/orderReport'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $authtoken',
+        },
+        body: jsonEncode({
+          'start_date': DateFormat('yyyy-MM-dd').format(startDate),
+          'end_date': DateFormat('yyyy-MM-dd').format(endDate),
+        })
+    );
+    print('Response Status Code: ${response.statusCode}');
+    print('Response Body: ${response.body}');
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonData = json.decode(response.body);
+      print(jsonData);
+      final List<OrderDetails> orderDetailsList =
+      jsonData.map((data) => OrderDetails.fromJson(data)).toList();
+      print(orderDetailsList);
+      return orderDetailsList;
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 }

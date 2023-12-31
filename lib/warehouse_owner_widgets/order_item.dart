@@ -11,6 +11,7 @@ class OrdersList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return ListView.builder(
       itemCount: orders.length,
       itemBuilder: (context, index) {
@@ -69,7 +70,7 @@ class _ProductListItemState extends State<ProductListItem> {
                 Text('Order Status: '),
                 DropdownButton<String>(
                   value: widget.order.status,
-                  items: ['are preparing ', 'Sent', 'received']
+                  items: ['are preparing', 'Sent', 'received']
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,

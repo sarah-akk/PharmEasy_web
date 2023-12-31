@@ -27,6 +27,11 @@ class MedicinesList with ChangeNotifier {
     return [...medicines];
   }
 
+  int get itemslenght {
+
+    return [...medicines].length;
+  }
+
   Medicine findById(int id) {
     return items.firstWhere((prod) => prod.id == id);
   }
