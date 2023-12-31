@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:medicine_warehouse/warehouse_owner_screens/Dashboard.dart';
 import 'package:medicine_warehouse/warehouse_owner_screens/home_page.dart';
 import 'package:medicine_warehouse/warehouse_owner_screens/orders_screen.dart';
 import 'package:medicine_warehouse/warehouse_owner_screens/products_screen.dart';
@@ -57,6 +56,13 @@ class MyApp extends StatelessWidget {
               // Add more theme properties
             ),
             debugShowCheckedModeBanner: false,
+            supportedLocales: [
+              Locale('en'),
+              Locale('ar'),
+            ],
+            // localizationsDelegates: [
+            //   GlobalMaterialLocalizations.delegate,
+            // ],
             home: StartPage(),
 
             routes: {
