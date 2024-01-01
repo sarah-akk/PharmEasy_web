@@ -51,7 +51,7 @@ class StartPage extends StatelessWidget {
                           primary: Colors.transparent,
                           elevation: 0, // Remove the button's default elevation
                         ),
-                        child: Text('Get Started',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 19),),
+                        child: Text('Get Started',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 15),),
                       ),
                     ),
                   ],

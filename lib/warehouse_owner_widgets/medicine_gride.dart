@@ -1,10 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_warehouse/models/medicine.dart';
 import 'package:medicine_warehouse/models/medicines.dart';
-import 'package:meta/meta.dart';
 import 'package:provider/provider.dart';
 
+import '../Lang/locale_keys.g.dart';
 import 'medicine_item.dart';
 
 class WebMedicineGride extends StatefulWidget {
@@ -56,7 +57,7 @@ class _WebMedicineGrideState extends State<WebMedicineGride> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
-                'choose category : ',
+                LocaleKeys.choose_category.tr(),
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.white,
@@ -67,12 +68,12 @@ class _WebMedicineGrideState extends State<WebMedicineGride> {
             DropdownButton<int>(
               value: categoryNumber,
               items: [
-                DropdownMenuItem(value: 0, child: Text('ALL')),
-                DropdownMenuItem(value: 1, child: Text('Neurological medications')),
-                DropdownMenuItem(value: 2, child: Text('Heart medications')),
-                DropdownMenuItem(value: 3, child: Text('Anti-inflammatories')),
-                DropdownMenuItem(value: 4, child: Text('Food supplements')),
-                DropdownMenuItem(value: 5, child: Text('Painkillers')),
+                DropdownMenuItem(value: 0, child: Text(LocaleKeys.All.tr())),
+                DropdownMenuItem(value: 1, child: Text(LocaleKeys.Heart_medications.tr())),
+                DropdownMenuItem(value: 2, child: Text(LocaleKeys.Neurological_medications.tr())),
+                DropdownMenuItem(value: 3, child: Text(LocaleKeys.Anti_inflammatories.tr())),
+                DropdownMenuItem(value: 4, child: Text(LocaleKeys.Food_supplements.tr())),
+                DropdownMenuItem(value: 5, child: Text(LocaleKeys.Painkillers.tr())),
               ],
               onChanged: (value) {
                 setState(() {

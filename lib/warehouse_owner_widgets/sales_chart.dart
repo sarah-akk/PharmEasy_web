@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:medicine_warehouse/Lang/locale_keys.g.dart';
 
 class SalesChart extends StatefulWidget {
   @override
@@ -40,18 +42,18 @@ class SalesChartState extends State<SalesChart> {
                   height: 37,
                 ),
                 const Text(
-                  'Unfold Shop 2018',
+                  'Farmeasy 2023',
                   style: TextStyle(
                     color: Color(0xff827daa),
                     fontSize: 16,
                   ),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(
+                 SizedBox(
                   height: 4,
                 ),
-                const Text(
-                  'Monthly Sales',
+                 Text(
+                  LocaleKeys.Monthly_Sales.tr(),
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 32,
@@ -59,7 +61,7 @@ class SalesChartState extends State<SalesChart> {
                       letterSpacing: 2),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(
+                 SizedBox(
                   height: 37,
                 ),
                 Expanded(

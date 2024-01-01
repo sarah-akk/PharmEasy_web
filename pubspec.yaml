@@ -39,7 +39,8 @@ dependencies:
   fl_chart: ^0.62.0
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  flutter_localizations:
+  easy_localization: ^3.0.3
+
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,7 @@ flutter:
     - assets/images/Screenshot 2023-12-12 035745.jpg
     - assets/images/pharmeasy.png
     - assets/images/pharmeasy2.png
+    - assets/Lang/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

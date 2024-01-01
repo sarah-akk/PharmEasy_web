@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:medicine_warehouse/Lang/locale_keys.g.dart';
 import 'package:medicine_warehouse/models/medicine.dart';
 import 'package:medicine_warehouse/models/medicines.dart';
 import 'package:medicine_warehouse/warehouse_owner_widgets/page_header.dart';
@@ -119,7 +121,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             SizedBox(height: 20,),
-            PageHeader(text: "Add medicine"),
+            PageHeader(text: LocaleKeys.Add_medicine.tr()),
             SizedBox(height: 50,),
             SingleChildScrollView(
             child: Container(
@@ -142,7 +144,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
               child: Column(
                 children: <Widget>[
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Scientific Name',labelStyle: TextStyle(fontSize: 21)),
+                    decoration: InputDecoration(labelText: LocaleKeys.Scientific_Name.tr(),labelStyle: TextStyle(fontSize: 21)),
                     textInputAction: TextInputAction.next,
                     focusNode:Scientific_Name_Node,
                     onFieldSubmitted: (_) {
@@ -150,7 +152,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                     },
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Please provide a value.';
+                        return LocaleKeys.Please_provide_a_value.tr();
                       }
                       return null;
                     },
@@ -173,7 +175,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                     },
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Commercial Name',labelStyle: TextStyle(fontSize: 21)),
+                    decoration: InputDecoration(labelText: LocaleKeys.Commercial_Name.tr(),labelStyle: TextStyle(fontSize: 21)),
                     initialValue: _initValues['commercialName'].toString(),
                     textInputAction: TextInputAction.next,
                     focusNode: Commercial_Name_Node,
@@ -182,7 +184,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                     },
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Please provide a value.';
+                        return LocaleKeys.Please_provide_a_value.tr();
                       }
                       return null;
                     },
@@ -205,7 +207,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                     },
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Category',labelStyle: TextStyle(fontSize: 21)),
+                    decoration: InputDecoration(labelText: LocaleKeys.Category.tr(),labelStyle: TextStyle(fontSize: 21)),
                     initialValue: _initValues['Category'].toString(),
                     textInputAction: TextInputAction.next,
                     focusNode: Category_Node,
@@ -214,7 +216,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                     },
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Please provide a value.';
+                        return LocaleKeys.Please_provide_a_value.tr();
                       }
                       return null;
                     },
@@ -239,7 +241,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                     },
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Manufacturer',labelStyle: TextStyle(fontSize: 21)),
+                    decoration: InputDecoration(labelText: LocaleKeys.Manufacturer.tr(),labelStyle: TextStyle(fontSize: 21)),
                     initialValue: _initValues['manufacturer'].toString(),
                     textInputAction: TextInputAction.next,
                     focusNode: Manufacturer_Node,
@@ -249,7 +251,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                     },
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Please provide a value.';
+                        return LocaleKeys.Please_provide_a_value.tr();
                       }
                       return null;
                     },
@@ -273,7 +275,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                   ),
                   TextFormField(
                     decoration:
-                    InputDecoration(labelText: 'Quantity Available',labelStyle: TextStyle(fontSize: 21)),
+                    InputDecoration(labelText: LocaleKeys.Quantity.tr(),labelStyle: TextStyle(fontSize: 21)),
                     initialValue: _initValues['quantityAvailable'].toString(),
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.number,
@@ -283,7 +285,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                     },
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Please provide a value.';
+                        return LocaleKeys.Please_provide_a_value.tr();
                       }
                       return null;
                     },
@@ -306,7 +308,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                     },
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Expiry Date',labelStyle: TextStyle(fontSize: 21)),
+                    decoration: InputDecoration(labelText: LocaleKeys.Expiry_Date.tr(),labelStyle: TextStyle(fontSize: 21)),
                     initialValue: _initValues['expiryDate'].toString(),
                     textInputAction: TextInputAction.next,
                     focusNode: Expiry_Date_Node,
@@ -315,7 +317,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                     },
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Please provide a value.';
+                        return LocaleKeys.Please_provide_a_value.tr();
                       }
                       return null;
                     },
@@ -338,7 +340,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                     },
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Price Name',labelStyle: TextStyle(fontSize: 21)),
+                    decoration: InputDecoration(labelText: LocaleKeys.Price.tr(),labelStyle: TextStyle(fontSize: 21)),
                     initialValue: _initValues['price'].toString(),
                     keyboardType: TextInputType.number,
                     textInputAction: TextInputAction.next,
@@ -348,7 +350,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                     },
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Please provide a value.';
+                        return LocaleKeys.Please_provide_a_value.tr();
                       }
                       return null;
                     },
@@ -371,7 +373,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                     },
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Img URL',labelStyle: TextStyle(fontSize: 21)),
+                    decoration: InputDecoration(labelText: LocaleKeys.Img_URL.tr(),labelStyle: TextStyle(fontSize: 21)),
                     initialValue: _initValues['imageUrl'].toString(),
                     keyboardType: TextInputType.url,
                     focusNode: Img_Node,
@@ -381,7 +383,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                     },
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Please provide a value.';
+                        return LocaleKeys.Please_provide_a_value.tr();
                       }
                       return null;
                     },
@@ -398,7 +400,6 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                           price: newMedicine.price,
                           imageUrl: value.toString(),
                           isfavorate: newMedicine.isfavorate,
-
                         );
                       }
                     },
@@ -410,12 +411,10 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                       ElevatedButton(
 
                         onPressed: () {
-                          // Add your logic for saving the changes
                           _saveForm();
-
                         },
 
-                        child: Text('Save',style: TextStyle(fontSize: 20),),
+                        child: Text(LocaleKeys.Save.tr(),style: TextStyle(fontSize: 20),),
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(130, 40), // Set the width and height
                           primary: Colors.pink, // Set the background color
@@ -428,7 +427,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
 
                           // Add your logic for discarding changes or canceling
                         },
-                        child: Text('Cancel',style: TextStyle(fontSize: 20),),
+                        child: Text(LocaleKeys.Cancel.tr(),style: TextStyle(fontSize: 20),),
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(130, 40), // Set the width and height
                           primary: Colors.yellow, // Set the background color
@@ -437,10 +436,8 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                       ),
                     ],
                   ),
-
                 ],
               ),
-
             ),
           ),
         ),

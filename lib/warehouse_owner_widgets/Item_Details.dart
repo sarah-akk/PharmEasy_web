@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:medicine_warehouse/Lang/locale_keys.g.dart';
 import 'package:medicine_warehouse/models/medicines.dart';
 import 'package:provider/provider.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import '../models/medicine.dart';
 
 class MedicineDetailsCard extends StatelessWidget {
@@ -67,22 +68,21 @@ class MedicineDetailsCard extends StatelessWidget {
             width: 200, // Adjust the width as needed
           ),
           SizedBox(height: 30,),
-          Text(
-            'Scientific Name: ${loadedMedicine.scientificName}',
+          Text('${LocaleKeys.Scientific_Name.tr()} : ${loadedMedicine.scientificName}',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 8),
-          Text('Commercial Name: ${loadedMedicine.commercialName}'),
+          Text('${LocaleKeys.Commercial_Name.tr()} : ${loadedMedicine.commercialName}'),
           SizedBox(height: 8),
-          Text('Category: ${category}' ),
+          Text('${LocaleKeys.Category.tr()} : ${category}' ),
           SizedBox(height: 8),
-          Text('Manufacturer: ${loadedMedicine.manufacturer}'),
+          Text('${LocaleKeys.Manufacturer.tr()} : ${loadedMedicine.manufacturer}'),
           SizedBox(height: 8),
-          Text('Quantity Available: ${loadedMedicine.quantityAvailable.toString()}'),
+          Text('${LocaleKeys.Quantity.tr()} : ${loadedMedicine.quantityAvailable.toString()}'),
           SizedBox(height: 8),
-          Text('Expiry Date: ${loadedMedicine.expiryDate.toString()}'),
+          Text('${LocaleKeys.Expiry_Date.tr()} : ${loadedMedicine.expiryDate.toString()}'),
           SizedBox(height: 8),
-          Text('Price: ${loadedMedicine.price.toString()}'),
+          Text('${LocaleKeys.Price.tr()} : ${loadedMedicine.price.toString()}'),
           SizedBox(height: 30,),
 
           ElevatedButton(
@@ -91,7 +91,7 @@ class MedicineDetailsCard extends StatelessWidget {
               Navigator.of(context).pop(); // Close the dialog
             },
 
-            child: Text('Close'),
+            child: Text('${LocaleKeys.Close.tr()}'),
             style: ElevatedButton.styleFrom(
               primary: Colors.pink, // Set the background color
               // You can also customize other properties like padding, elevation, etc.

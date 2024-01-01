@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:medicine_warehouse/Lang/locale_keys.g.dart';
 import 'package:medicine_warehouse/models/medicines.dart';
 import 'package:provider/provider.dart';
 import '../models/orders.dart';
@@ -53,7 +55,7 @@ class _HomePageDesktopState extends State<HomePageDesktop> {
                 Expanded(
                   child: ListView(
                     children: [
-                      PageHeader(text: "DASHBOARD"),
+                      PageHeader(text: tr("dashboard")),
                       CardsList(),
                       Padding(
                         padding: const EdgeInsets.all(14),
@@ -83,7 +85,7 @@ class _HomePageDesktopState extends State<HomePageDesktop> {
                                 children: [
                                   SizedBox(height: 20),
                                   Text(
-                                    'Reports',
+                                    tr("Reports"),
                                     style: TextStyle(
                                       fontSize: 35,
                                       color: Colors.deepPurple,
@@ -104,7 +106,7 @@ class _HomePageDesktopState extends State<HomePageDesktop> {
                                           children: [
                                             SizedBox(height: 10),
                                             ReportItem(
-                                              title: 'Orders in 2023',
+                                              title: LocaleKeys.Orders_in_2023.tr(),
                                               orderDetailsList: orderDetailsList,
                                             ),
                                           ],
@@ -126,7 +128,7 @@ class _HomePageDesktopState extends State<HomePageDesktop> {
                                           children: [
                                             SizedBox(height: 10),
                                             ReportItem(
-                                              title: 'Sales Report',
+                                              title: LocaleKeys.Sales_Report.tr(),
                                               orderDetailsList: orderDetailsList,
                                             ),
                                           ],

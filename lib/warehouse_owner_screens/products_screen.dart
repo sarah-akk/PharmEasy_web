@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:medicine_warehouse/Lang/locale_keys.g.dart';
 import 'package:provider/provider.dart';
 import '../models/medicines.dart';
 import '../warehouse_owner_widgets/medicine_gride.dart';
@@ -52,7 +54,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
   PopupMenuItem<String> buildAllCategoriesMenuItem() {
     return PopupMenuItem<String>(
       value: 'All',
-      child: Text('All Categories'),
+      child: Text(LocaleKeys.All.tr()),
     );
   }
 
@@ -90,7 +92,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   TopBar(),
-                  PageHeader(text: "medicines"),
+                  PageHeader(text: LocaleKeys.medicines.tr()),
                   SizedBox(height: 50),
                   Row(
                     children: <Widget>[
@@ -111,7 +113,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                 MedicineAddScreen.routeName);
                           },
                           child: Tooltip(
-                            message: 'Add a new medicine',
+                            message: LocaleKeys.Add_a_new_medicine.tr(),
                             child: Row(
                               children: [
                                 Icon(
@@ -121,7 +123,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                 ),
                                 SizedBox(width: 10),
                                 Text(
-                                  "Add New Medicine",
+                                  LocaleKeys.Add_a_new_medicine.tr(),
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 25,
@@ -152,7 +154,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           textFieldConfiguration: TextFieldConfiguration(
                             controller: _searchController,
                             decoration: InputDecoration(
-                              hintText: 'Search for medicines .. ',
+                              hintText: LocaleKeys.Search_for_medicines_.tr(),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                                 borderSide: BorderSide(
@@ -218,7 +220,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text(
-                          'Available Medicines',
+                          LocaleKeys.Available_Medicines.tr(),
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.white,

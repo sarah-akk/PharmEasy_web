@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_warehouse/warehouse_owner_screens/home_page.dart';
 import 'package:medicine_warehouse/warehouse_owner_screens/orders_screen.dart';
@@ -5,16 +6,26 @@ import 'package:medicine_warehouse/warehouse_owner_screens/products_screen.dart'
 import 'package:medicine_warehouse/warehouse_owner_widgets/Item_Details.dart';
 import 'package:medicine_warehouse/warehouse_owner_screens/add_medicine.dart';
 import 'package:provider/provider.dart';
+import 'Lang/codegen_loader.g.dart';
 import 'models/Auth.dart';
-import 'models/Language.dart';
 import 'models/medicines.dart';
 import 'models/orders.dart';
 import 'start_page.dart';
 import 'warehouse_owner_screens/web_auth_screen.dart';
 
-void main() {
+Future <void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+  await EasyLocalization.ensureInitialized();
+  runApp(EasyLocalization(
+      path: 'assets/Lang',
+      supportedLocales: [
+        Locale('en'),
+        Locale('ar'),
+      ],
+      fallbackLocale: Locale('en'),
+      assetLoader: CodegenLoader(),
+      child: MyApp())
+  );
 }
 class MyApp extends StatelessWidget {
 
@@ -36,8 +47,6 @@ class MyApp extends StatelessWidget {
                     previousProducts == null ? [] : previousProducts.medicines,
                   ),
             ),
-            ChangeNotifierProvider<Language>(
-              create: (context) => Language(),),
             ChangeNotifierProxyProvider<Auth, Orders>(
               create: (_) => Orders('', '', []),
               // Create your Products instance here.
@@ -52,17 +61,10 @@ class MyApp extends StatelessWidget {
           child: MaterialApp(
             theme: ThemeData(
               primaryColor: Colors.blueAccent,
-              accentColor: Colors.greenAccent,
+              hintColor: Colors.greenAccent,
               // Add more theme properties
             ),
             debugShowCheckedModeBanner: false,
-            supportedLocales: [
-              Locale('en'),
-              Locale('ar'),
-            ],
-            // localizationsDelegates: [
-            //   GlobalMaterialLocalizations.delegate,
-            // ],
             home: StartPage(),
 
             routes: {
@@ -76,6 +78,9 @@ class MyApp extends StatelessWidget {
 
             },
 
+            supportedLocales: context.supportedLocales,
+            localizationsDelegates: context.localizationDelegates,
+            locale: context.locale,
 
           )
       );

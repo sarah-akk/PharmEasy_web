@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:medicine_warehouse/Lang/locale_keys.g.dart';
 import 'package:provider/provider.dart';
 
 import '../models/orders.dart';
@@ -58,33 +60,45 @@ class _ProductListItemState extends State<ProductListItem> {
               borderRadius: BorderRadius.circular(15.0),
               color: contactColors[colorIndex],
             ),
-            child: Text(widget.order.phone),
+              child: Text('${LocaleKeys.contact.tr()}:  ${LocaleKeys.name.tr()}: ${widget.order.name}     ${LocaleKeys.phone.tr()}: ${widget.order.phone}',style: TextStyle(color: Colors.black,fontSize: 19,),)
           ),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Total Price: \$${widget.order.amount.toStringAsFixed(2)}'),
+            Text('${LocaleKeys.Total_Price.tr()}: \$${widget.order.amount.toStringAsFixed(2)}'),
             Row(
               children: [
-                Text('Order Status: '),
+                Text('${LocaleKeys.Order_Status.tr()}: '),
                 DropdownButton<String>(
                   value: widget.order.status,
-                  items: ['are preparing', 'Sent', 'received']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  })
-                      .toList(),
+                  items: [
+                    DropdownMenuItem<String>(
+                      value: 'are preparing',
+                      child: Text(LocaleKeys.are_preparing.tr()),
+                    ),
+                    DropdownMenuItem<String>(
+                      value: 'Sent',
+                      child: Text(LocaleKeys.Sent.tr()),
+                    ),
+                    DropdownMenuItem<String>(
+                      value: 'received',
+                      child: Text(LocaleKeys.received.tr()),
+                    ),
+                  ],
                   onChanged: (String? selectedValue) async {
                     if (selectedValue != null) {
                       setState(() {
                         widget.order.status = selectedValue;
                       });
                       try {
-                        await Provider.of<Orders>(context,listen: false).changeOrderStatus(widget.order.id, selectedValue);
+                        await Provider.of<Orders>(context, listen: false).changeOrderStatus(widget.order.id, selectedValue);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Order status changed!'),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
                       } catch (error) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -92,14 +106,9 @@ class _ProductListItemState extends State<ProductListItem> {
                             backgroundColor: Colors.red,
                           ),
                         );
+                        // Revert to the original status if there's an error
                         setState(() {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('order status changeed !'),
-                                backgroundColor: Colors.green,
-                              ),
-                          );
-                          widget.order.status = widget.order.status; // You may need to revert to the original status
+                          widget.order.status = widget.order.status;
                         });
                       }
                     }
@@ -137,7 +146,7 @@ class _ProductListItemState extends State<ProductListItem> {
                   style: ElevatedButton.styleFrom(
                     primary: widget.order.paymentStatus ? Colors.green : Colors.red,
                   ),
-                  child: Text(widget.order.paymentStatus ? 'Paid' : 'Not Paid'),
+                  child: Text(widget.order.paymentStatus ? LocaleKeys.Paid.tr() : LocaleKeys.Not_Paid.tr(),style: TextStyle(color: Colors.white70),),
                 ),
               ],
             ),
@@ -147,8 +156,8 @@ class _ProductListItemState extends State<ProductListItem> {
           // Display medicines here
           for (var product in widget.order.products)
             ListTile(
-              title: Text(product.title),
-              subtitle: Text('Quantity: ${product.quantity}'),
+              title: Text('${LocaleKeys.name.tr()} : ${product.title}'),
+              subtitle: Text('${LocaleKeys.Quantity.tr()} : ${product.quantity}'),
             ),
         ],
       ),

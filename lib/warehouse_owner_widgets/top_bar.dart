@@ -1,7 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:medicine_warehouse/Lang/locale_keys.g.dart';
 import 'package:provider/provider.dart';
-
-import '../models/Language.dart';
 
 class TopBar extends StatefulWidget {
   @override
@@ -9,6 +9,11 @@ class TopBar extends StatefulWidget {
 }
 
 class _TopBarState extends State<TopBar> {
+
+  void _changeLanguage(String languageCode) {
+    context.setLocale(Locale(languageCode));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +37,7 @@ class _TopBarState extends State<TopBar> {
                 children: [
                   TextButton.icon(
                     icon: Icon(Icons.notifications_sharp),
-                    label: Text('Notifications',style: TextStyle(fontSize: 20),),
+                    label: Text(LocaleKeys.Notifications.tr(),style: TextStyle(fontSize: 20),),
                     onPressed: () {},
                   ),
                   Positioned(
@@ -62,7 +67,7 @@ class _TopBarState extends State<TopBar> {
                           padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
                           child: Icon(Icons.print),
                         ),
-                        Text('Print'),
+                        Text(LocaleKeys.Print.tr()),
                       ],
                     ),
                   ),
@@ -74,7 +79,7 @@ class _TopBarState extends State<TopBar> {
                           padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
                           child: Icon(Icons.share),
                         ),
-                        Text('Share'),
+                        Text(LocaleKeys.Share.tr()),
                       ],
                     ),
                   ),
@@ -86,23 +91,22 @@ class _TopBarState extends State<TopBar> {
                           padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
                           child: Icon(Icons.language),
                         ),
-                        Text('Language'),
+                        Text(LocaleKeys.Language.tr()),
                         SizedBox(width: 10),
                         DropdownButton<String>(
-                          value: Provider.of<Language>(context, listen: false).locale.languageCode,
                           items: [
                             DropdownMenuItem(
                               value: 'en',
-                              child: Text('English'),
+                              child: Text(LocaleKeys.English.tr()),
                             ),
                             DropdownMenuItem(
                               value: 'ar',
-                              child: Text('Arabic'),
+                              child: Text(LocaleKeys.Arabic.tr()),
                             ),
                           ],
                           onChanged: (value) {
                             if (value != null) {
-                              Provider.of<Language>(context, listen: false).changeLanguage(Locale(value));
+                              _changeLanguage(value);
                             }
                           },
                         ),
@@ -111,7 +115,7 @@ class _TopBarState extends State<TopBar> {
                   ),
                 ],
               ),
-              Text('settings',style: TextStyle(color: Colors.lightBlue,fontSize: 20),),
+              Text(LocaleKeys.settings.tr(),style: TextStyle(color: Colors.lightBlue,fontSize: 20),),
               SizedBox(
                 width: 20,
               ),

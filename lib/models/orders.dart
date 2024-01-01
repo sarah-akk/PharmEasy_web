@@ -10,6 +10,7 @@ class OrderItem {
   final double  amount;
   final List<CartItem> products;
   final String dateTime;
+  final String name;
   final String phone;
    String status;
    bool paymentStatus;
@@ -19,6 +20,7 @@ class OrderItem {
     required this.amount,
     required this.products,
     required this.dateTime,
+    required this.name,
     required this.phone,
     required this.status,
     required this.paymentStatus,
@@ -86,6 +88,7 @@ class Orders with ChangeNotifier {
           dateTime: orderData['created_at'],
           status: orderData['status'],
           paymentStatus: orderData['paid_status'] == 1,
+          name: orderData['user']['name'],
           phone: orderData['user']['phone'],
         ));
       });

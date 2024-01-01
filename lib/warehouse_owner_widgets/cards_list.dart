@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:medicine_warehouse/Lang/locale_keys.g.dart';
 import 'package:medicine_warehouse/models/medicines.dart';
 import 'package:medicine_warehouse/models/orders.dart';
 import 'package:provider/provider.dart';
@@ -41,24 +43,24 @@ class CardsList extends StatelessWidget {
                 children: [
                   CardItem(
                     icon: Icons.monetization_on_outlined,
-                    title: "Revenue",
-                    subtitle: "Revenue this month",
+                    title: LocaleKeys.Revenue.tr(),
+                    subtitle: LocaleKeys.Revenue_this_month.tr(),
                     value: revenue,
                     color1: Colors.green.shade700,
                     color2: Colors.green,
                   ),
                   CardItem(
                     icon: Icons.shopping_basket_outlined,
-                    title: "Products",
-                    subtitle: "Total products on store",
+                    title: LocaleKeys.Products.tr(),
+                    subtitle: LocaleKeys.Total_products_on_store.tr(),
                     value: medicinesLength,
                     color1: Colors.lightBlueAccent,
                     color2: Colors.blue,
                   ),
                   CardItem(
                     icon: Icons.delivery_dining,
-                    title: "Orders",
-                    subtitle: "Total orders for this month",
+                    title: LocaleKeys.Orders.tr(),
+                    subtitle: LocaleKeys.Total_orders_for_this_month.tr(),
                     value: ordersLength,
                     color1: Colors.pink,
                     color2: Colors.pinkAccent,

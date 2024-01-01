@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:medicine_warehouse/Lang/locale_keys.g.dart';
 
 class mydrawer extends StatelessWidget {
 
@@ -33,28 +35,28 @@ class mydrawer extends StatelessWidget {
         // Image.asset("assets/images/Screenshot 2023-11-20 163429.png"),
          ListTile(
            leading: Icon(Icons.dashboard, color: Colors.white),
-           title: Text('Dashboard', style: TextStyle(color: Colors.white,fontSize: 20)),
+           title: Text(LocaleKeys.dashboard.tr(), style: TextStyle(color: Colors.white,fontSize: 20)),
            onTap: () {
              Navigator.of(context).pushReplacementNamed('/HomePageDesktop')      ;
            },
          ),
          ListTile(
            leading: Icon(Icons.shopping_cart, color: Colors.white),
-           title: Text('Orders', style: TextStyle(color: Colors.white,fontSize: 20)),
+           title: Text(LocaleKeys.Orders.tr(), style: TextStyle(color: Colors.white,fontSize: 20)),
            onTap: () {
              Navigator.of(context).pushReplacementNamed('/OrdersScreen')      ;
            },
          ),
          ListTile(
            leading: Icon(Icons.medical_information, color: Colors.white),
-           title: Text('Products', style: TextStyle(color: Colors.white,fontSize: 20)),
+           title: Text(LocaleKeys.Products.tr(), style: TextStyle(color: Colors.white,fontSize: 20)),
            onTap: () {
              Navigator.of(context).pushReplacementNamed('/ProductsScreen');
            },
          ),
          ListTile(
            leading: Icon(Icons.logout, color: Colors.white),
-           title: Text('log out', style: TextStyle(color: Colors.white,fontSize: 20)),
+           title: Text(LocaleKeys.log_out.tr(), style: TextStyle(color: Colors.white,fontSize: 20)),
            onTap: () {
              Navigator.of(context).pushReplacementNamed('/StartPage');
            },
