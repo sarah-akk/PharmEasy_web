@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medicine_warehouse/Lang/locale_keys.g.dart';
+import 'package:medicine_warehouse/Lang/Locale_keys_.g.dart';
 import 'package:medicine_warehouse/models/medicines.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -45,7 +45,7 @@ class MedicineDetailsCard extends StatelessWidget {
 
 
     return Container(
-      height: 500,
+      height: 650,
       width: 500,
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
@@ -69,20 +69,19 @@ class MedicineDetailsCard extends StatelessWidget {
           ),
           SizedBox(height: 30,),
           Text('${LocaleKeys.Scientific_Name.tr()} : ${loadedMedicine.scientificName}',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+            style: TextStyle(fontWeight: FontWeight.bold , fontSize: 22)),
           SizedBox(height: 8),
-          Text('${LocaleKeys.Commercial_Name.tr()} : ${loadedMedicine.commercialName}'),
+          Text('${LocaleKeys.Commercial_Name.tr()} : ${loadedMedicine.commercialName}',style: TextStyle(fontSize: 18)),
           SizedBox(height: 8),
-          Text('${LocaleKeys.Category.tr()} : ${category}' ),
+          Text('${LocaleKeys.Category.tr()} : ${category}', style: TextStyle(fontSize: 18)),
           SizedBox(height: 8),
-          Text('${LocaleKeys.Manufacturer.tr()} : ${loadedMedicine.manufacturer}'),
+          Text('${LocaleKeys.Manufacturer.tr()} : ${loadedMedicine.manufacturer}',style: TextStyle(fontSize: 18)),
           SizedBox(height: 8),
-          Text('${LocaleKeys.Quantity.tr()} : ${loadedMedicine.quantityAvailable.toString()}'),
+          Text('${LocaleKeys.Quantity.tr()} : ${loadedMedicine.quantityAvailable.toString()}',style: TextStyle(fontSize: 18)),
           SizedBox(height: 8),
-          Text('${LocaleKeys.Expiry_Date.tr()} : ${loadedMedicine.expiryDate.toString()}'),
+          Text('${LocaleKeys.Expiry_Date.tr()} : ${loadedMedicine.expiryDate.toString()}',style: TextStyle(fontSize: 18)),
           SizedBox(height: 8),
-          Text('${LocaleKeys.Price.tr()} : ${loadedMedicine.price.toString()}'),
+          Text('${LocaleKeys.Price.tr()} : ${loadedMedicine.price.toString()}',style: TextStyle(fontSize: 18)),
           SizedBox(height: 30,),
 
           ElevatedButton(
@@ -91,7 +90,7 @@ class MedicineDetailsCard extends StatelessWidget {
               Navigator.of(context).pop(); // Close the dialog
             },
 
-            child: Text('${LocaleKeys.Close.tr()}'),
+            child: Text('${LocaleKeys.Close.tr()}',style: TextStyle(color: Colors.white),),
             style: ElevatedButton.styleFrom(
               primary: Colors.pink, // Set the background color
               // You can also customize other properties like padding, elevation, etc.

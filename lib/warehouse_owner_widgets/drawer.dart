@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:medicine_warehouse/Lang/locale_keys.g.dart';
+import 'package:medicine_warehouse/Lang/Locale_keys_.g.dart';
 
 class mydrawer extends StatelessWidget {
 

@@ -51,5 +51,13 @@
   "Save": "حفظ",
   "Cancel": "الغاء",
   "Please_provide_a_value": "الرجاء اضافة قيمة",
-  "Close": "اغلاق"
+  "Close": "اغلاق",
+  "Sales_description": "هذه قائمة الطلبات التي تم بيعها في عام 2023:",
+  "orders_description": "هذه قائمة الطلبات التي لم يتم إرسالها و دفعها في عام 2023 :",
+  "Order_ID": "رقم التعريف الخاص بالطلب:",
+  "Created_At": "تاريخ الانشاء",
+  "Updated_At": "تم التعديل بتاريخ",
+  "Where_was_the_total_number_of_orders": "وكان العدد الإجمالي للطلبات",
+  "and_The_total_profit_of_FarmEasy_was": "وكان إجمالي ربح FarmEasy هو",
+  "paidstatuse": "حالة الدفع"
 }

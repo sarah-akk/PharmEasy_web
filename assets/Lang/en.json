@@ -51,5 +51,13 @@
   "Save": "Save",
   "Cancel": "Cancel",
   "Please_provide_a_value": "Please provide a value",
-  "Close": "Close"
+  "Close": "Close",
+  "Sales_description": "this is a list of orders that has  been Saled in 2023 :",
+  "orders_description": "this is a list of orders that has not been Sent and paid in 2023 :",
+  "Order_ID": "Order ID",
+  "Created_At": "Created At",
+  "Updated_At": "Updated At",
+  "Where_was_the_total_number_of_orders": "Were was the total number of orders",
+  "and_The_total_profit_of_FarmEasy_was": "and The total profit of FarmEasy was",
+  "paidstatuse": "Paid Status"
 }

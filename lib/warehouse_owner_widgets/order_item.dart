@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:medicine_warehouse/Lang/locale_keys.g.dart';
+import 'package:medicine_warehouse/Lang/Locale_keys_.g.dart';
 import 'package:provider/provider.dart';
 
 import '../models/orders.dart';
@@ -66,7 +66,8 @@ class _ProductListItemState extends State<ProductListItem> {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('${LocaleKeys.Total_Price.tr()}: \$${widget.order.amount.toStringAsFixed(2)}'),
+            Text('${LocaleKeys.Total_Price.tr()}: \$${widget.order.amount.toStringAsFixed(2)}',
+            style: TextStyle(fontSize: 18,color: Colors.pink),),
             Row(
               children: [
                 Text('${LocaleKeys.Order_Status.tr()}: '),

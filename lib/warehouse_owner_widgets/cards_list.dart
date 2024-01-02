@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:medicine_warehouse/Lang/locale_keys.g.dart';
+import 'package:medicine_warehouse/Lang/Locale_keys_.g.dart';
 import 'package:medicine_warehouse/models/medicines.dart';
 import 'package:medicine_warehouse/models/orders.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +45,7 @@ class CardsList extends StatelessWidget {
                     icon: Icons.monetization_on_outlined,
                     title: LocaleKeys.Revenue.tr(),
                     subtitle: LocaleKeys.Revenue_this_month.tr(),
-                    value: revenue,
+                    value: '\$${double.parse(revenue.toStringAsFixed(2))}',
                     color1: Colors.green.shade700,
                     color2: Colors.green,
                   ),
@@ -53,7 +53,7 @@ class CardsList extends StatelessWidget {
                     icon: Icons.shopping_basket_outlined,
                     title: LocaleKeys.Products.tr(),
                     subtitle: LocaleKeys.Total_products_on_store.tr(),
-                    value: medicinesLength,
+                    value: medicinesLength.toString(),
                     color1: Colors.lightBlueAccent,
                     color2: Colors.blue,
                   ),
@@ -61,7 +61,7 @@ class CardsList extends StatelessWidget {
                     icon: Icons.delivery_dining,
                     title: LocaleKeys.Orders.tr(),
                     subtitle: LocaleKeys.Total_orders_for_this_month.tr(),
-                    value: ordersLength,
+                    value: ordersLength.toString(),
                     color1: Colors.pink,
                     color2: Colors.pinkAccent,
                   ),

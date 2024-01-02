@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:medicine_warehouse/Lang/locale_keys.g.dart';
+import 'package:medicine_warehouse/Lang/Locale_keys_.g.dart';
 import 'package:medicine_warehouse/models/medicines.dart';
 import 'package:provider/provider.dart';
 import '../models/orders.dart';
@@ -106,9 +106,11 @@ class _HomePageDesktopState extends State<HomePageDesktop> {
                                           children: [
                                             SizedBox(height: 10),
                                             ReportItem(
-                                              title: LocaleKeys.Orders_in_2023.tr(),
+                                              title: LocaleKeys.Sales_Report.tr(),
+                                              description: LocaleKeys.Sales_description.tr(),
                                               orderDetailsList: orderDetailsList,
                                             ),
+                                            Divider(),
                                           ],
                                         );
                                       }
@@ -126,11 +128,12 @@ class _HomePageDesktopState extends State<HomePageDesktop> {
                                         final orderDetailsList = snapshot.data!;
                                         return Column(
                                           children: [
-                                            SizedBox(height: 10),
                                             ReportItem(
-                                              title: LocaleKeys.Sales_Report.tr(),
+                                              title: LocaleKeys.Orders_in_2023.tr(),
+                                              description: LocaleKeys.orders_description.tr(),
                                               orderDetailsList: orderDetailsList,
                                             ),
+                                            Divider(),
                                           ],
                                         );
                                       }
@@ -156,12 +159,14 @@ class _HomePageDesktopState extends State<HomePageDesktop> {
 
 
 class ReportItem extends StatefulWidget {
-  
+
   final String title;
+  final String description;
   final List<OrderDetails> orderDetailsList;
 
   ReportItem({
     required this.title,
+    required this.description,
     required this.orderDetailsList,
   });
 
@@ -173,10 +178,9 @@ class _ReportItemState extends State<ReportItem> {
 
   @override
   Widget build(BuildContext context) {
-    
-    
     return ListTile(
-      title: Text(widget.title,style: TextStyle(color: Colors.teal,fontWeight: FontWeight.bold),),
+      title: Text(widget.title,
+        style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold),),
       onTap: () {
         _showReportDetails(context);
       },
@@ -188,36 +192,54 @@ class _ReportItemState extends State<ReportItem> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(widget.title),
+          title: Text(widget.title,style: TextStyle(color: Colors.pink,fontSize: 20,fontWeight: FontWeight.w900),),
           content: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: widget.orderDetailsList.map((orderDetails) {
-              return ListTile(
-                title: Text('Order ID: ${orderDetails.orderId}'),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Status: ${orderDetails.status}'),
-                    Text('Paid Status: ${orderDetails.paidStatus == 1 ? 'Paid' : 'Not Paid'}'),
-                    Text('Created At: ${orderDetails.createdAt.toString()}'),
-                    Text('Updated At: ${orderDetails.updatedAt.toString()}'),
-                    if (orderDetails.totalPrice != null) // Check if the field exists
-                      Text('Total Price: ${orderDetails.totalPrice.toString()}'),
-                  ],
+            children: [
+             Row(
+               children: [
+                 SizedBox(width: 200,),
+                 Image.asset("assets/images/data.jpg"),
+               ],
+             ),
+              SizedBox(height: 20,),
+              Text(widget.description,style: TextStyle(color: Colors.indigo,fontWeight: FontWeight.bold),),
+              // Existing code for individual order details
+              for (var orderDetails in widget.orderDetailsList)
+                ListTile(
+                  title: Text('${LocaleKeys.Order_ID.tr()}: ${orderDetails.orderId}'),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('${LocaleKeys.Order_Status.tr()}: ${orderDetails.status}'),
+                      Text('${LocaleKeys.paidstatuse.tr()}: ${orderDetails.paidStatus == 1
+                          ? '${LocaleKeys.Paid.tr()}'
+                          : '${LocaleKeys.Not_Paid.tr()}'}'),
+                      Text('${LocaleKeys.Created_At.tr()}: ${orderDetails.createdAt.toString()}'),
+                      Text('${LocaleKeys.Updated_At.tr()}: ${orderDetails.updatedAt.toString()}'),
+                      if (orderDetails.totalPrice != null)
+                        Text('${LocaleKeys.Total_Price.tr()}: ${orderDetails.totalPrice
+                            .toString()}'),
+                    ],
+                  ),
                 ),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  // Handle additional action when tapping an order within the list
-                },
-              );
-            }).toList(),
+              // Additional information for total orders and total price
+              ListTile(
+                title: Text('${LocaleKeys.Where_was_the_total_number_of_orders.tr()}: ${calculateTotalOrders(
+                    widget.orderDetailsList)}',style: TextStyle(color: Colors.indigo,fontWeight: FontWeight.bold)),
+              ),
+              ListTile(
+                title: Text('${LocaleKeys.and_The_total_profit_of_FarmEasy_was.tr()} : \$${calculateTotalPrice(
+                    widget.orderDetailsList).toStringAsFixed(2)}',style: TextStyle(color: Colors.indigo,fontWeight: FontWeight.bold)),
+              ),
+            ],
           ),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Close'),
+              child: Text('${LocaleKeys.Close.tr()}'),
             ),
           ],
         );
@@ -227,6 +249,19 @@ class _ReportItemState extends State<ReportItem> {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Function to calculate the total number of orders
+int calculateTotalOrders(List<OrderDetails> orderDetailsList) {
+  return orderDetailsList.length;
+}
+
+// Function to calculate the total price of all orders
+double calculateTotalPrice(List<OrderDetails> orderDetailsList) {
+  double totalPrice = 0.0;
+  for (var orderDetails in orderDetailsList) {
+    totalPrice += orderDetails.totalPrice;
+  }
+  return totalPrice;
+}
 
 class OrderDetails {
   final int orderId;

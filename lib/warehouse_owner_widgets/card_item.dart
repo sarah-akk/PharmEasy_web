@@ -5,7 +5,7 @@ import 'custom_text.dart';
 class CardItem extends StatelessWidget {
   final String subtitle;
   final String title;
-  final double value;
+  final String value; // Change the type to String
   final Color color1;
   final Color color2;
   final IconData icon;

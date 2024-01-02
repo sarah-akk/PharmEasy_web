@@ -54,5 +54,13 @@ abstract class  LocaleKeys {
   static const Cancel = 'Cancel';
   static const Please_provide_a_value = 'Please_provide_a_value';
   static const Close = 'Close';
+  static const Sales_description = 'Sales_description';
+  static const orders_description = 'orders_description';
+  static const Order_ID = 'Order_ID';
+  static const Created_At = 'Created_At';
+  static const Updated_At = 'Updated_At';
+  static const Where_was_the_total_number_of_orders = 'Where_was_the_total_number_of_orders';
+  static const and_The_total_profit_of_FarmEasy_was = 'and_The_total_profit_of_FarmEasy_was';
+  static const paidstatuse = 'paidstatuse';
 
 }

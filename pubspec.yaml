@@ -74,6 +74,7 @@ flutter:
     - assets/images/pharmeasy.png
     - assets/images/pharmeasy2.png
     - assets/Lang/
+    - assets/images/data.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

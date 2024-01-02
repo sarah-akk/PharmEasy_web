@@ -5,7 +5,7 @@ import 'package:medicine_warehouse/models/medicine.dart';
 import 'package:medicine_warehouse/models/medicines.dart';
 import 'package:provider/provider.dart';
 
-import '../Lang/locale_keys.g.dart';
+import 'package:medicine_warehouse/Lang/Locale_keys_.g.dart';
 import 'medicine_item.dart';
 
 class WebMedicineGride extends StatefulWidget {
@@ -111,7 +111,7 @@ SizedBox(height: 40,),
                 ),
 
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 6,
+                  crossAxisCount: 5,
                   childAspectRatio: 3 / 2,
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 20,

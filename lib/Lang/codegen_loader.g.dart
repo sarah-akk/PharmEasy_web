@@ -67,7 +67,15 @@ class CodegenLoader extends AssetLoader{
   "Save": "حفظ",
   "Cancel": "الغاء",
   "Please_provide_a_value": "الرجاء اضافة قيمة",
-  "Close": "اغلاق"
+  "Close": "اغلاق",
+  "Sales_description": "هذه قائمة الطلبات التي تم بيعها في عام 2023:",
+  "orders_description": "هذه قائمة الطلبات التي لم يتم إرسالها و دفعها في عام 2023 :",
+  "Order_ID": "رقم التعريف الخاص بالطلب:",
+  "Created_At": "تاريخ الانشاء",
+  "Updated_At": "تم التعديل بتاريخ",
+  "Where_was_the_total_number_of_orders": "وكان العدد الإجمالي للطلبات",
+  "and_The_total_profit_of_FarmEasy_was": "وكان إجمالي ربح FarmEasy هو",
+  "paidstatuse": "حالة الدفع"
 };
 static const Map<String,dynamic> en = {
   "dashboard": "dashboard",
@@ -122,7 +130,15 @@ static const Map<String,dynamic> en = {
   "Save": "Save",
   "Cancel": "Cancel",
   "Please_provide_a_value": "Please provide a value",
-  "Close": "Close"
+  "Close": "Close",
+  "Sales_description": "this is a list of orders that has  been Saled in 2023 :",
+  "orders_description": "this is a list of orders that has not been Sent and paid in 2023 :",
+  "Order_ID": "Order ID",
+  "Created_At": "Created At",
+  "Updated_At": "Updated At",
+  "Where_was_the_total_number_of_orders": "Were was the total number of orders",
+  "and_The_total_profit_of_FarmEasy_was": "and The total profit of FarmEasy was",
+  "paidstatuse": "Paid Status"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

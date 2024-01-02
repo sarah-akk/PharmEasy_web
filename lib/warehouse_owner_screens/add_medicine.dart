@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:medicine_warehouse/Lang/locale_keys.g.dart';
+import 'package:medicine_warehouse/Lang/Locale_keys_.g.dart';
 import 'package:medicine_warehouse/models/medicine.dart';
 import 'package:medicine_warehouse/models/medicines.dart';
 import 'package:medicine_warehouse/warehouse_owner_widgets/page_header.dart';
@@ -30,7 +30,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
   final _form = GlobalKey<FormState>();
 
   var _isloading = false;
-
+  String? selectedCategory; // Add this variable to store the selected category
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   final Map<String, int> categoryMap = {
@@ -206,16 +206,30 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                       }
                     },
                   ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: LocaleKeys.Category.tr(),labelStyle: TextStyle(fontSize: 21)),
-                    initialValue: _initValues['Category'].toString(),
-                    textInputAction: TextInputAction.next,
-                    focusNode: Category_Node,
-                    onFieldSubmitted: (_) {
-                      FocusScope.of(context).requestFocus(Manufacturer_Node);
+                  DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                      labelText: LocaleKeys.Category.tr(),
+                      labelStyle: TextStyle(fontSize: 21),
+                    ),
+                    value: selectedCategory ?? categoryMap.keys.first,
+                    items: categoryMap.keys.map((String category) {
+                      return DropdownMenuItem<String>(
+                        value: category,
+                        child: Text(category),
+                      );
+                    }).toList(),
+                    onChanged: (String? selectedCategory) {
+                      if (selectedCategory != null) {
+                        int categoryValue = categoryMap[selectedCategory] ?? 0;
+
+                        // Update the state or perform any actions with the selected category
+                        setState(() {
+                          // Update the form state or other variables as needed
+                        });
+                      }
                     },
                     validator: (value) {
-                      if (value!.isEmpty) {
+                      if (value == null || value.isEmpty) {
                         return LocaleKeys.Please_provide_a_value.tr();
                       }
                       return null;
@@ -235,7 +249,6 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                           price: newMedicine.price,
                           imageUrl: newMedicine.imageUrl,
                           isfavorate: newMedicine.isfavorate,
-
                         );
                       }
                     },
@@ -414,7 +427,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                           _saveForm();
                         },
 
-                        child: Text(LocaleKeys.Save.tr(),style: TextStyle(fontSize: 20),),
+                        child: Text(LocaleKeys.Save.tr(),style: TextStyle(fontSize: 20,color: Colors.white),),
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(130, 40), // Set the width and height
                           primary: Colors.pink, // Set the background color
@@ -425,9 +438,8 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                         onPressed: () {
                           Navigator.of(context).pushReplacementNamed(ProductsScreen.routeName);
 
-                          // Add your logic for discarding changes or canceling
                         },
-                        child: Text(LocaleKeys.Cancel.tr(),style: TextStyle(fontSize: 20),),
+                        child: Text(LocaleKeys.Cancel.tr(),style: TextStyle(fontSize: 20,color: Colors.white),),
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(130, 40), // Set the width and height
                           primary: Colors.yellow, // Set the background color
