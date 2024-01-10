@@ -145,6 +145,8 @@ static const Map<String,dynamic> en = {
   "neworders": "there are new orders !",
   "NothingChanged":"Nothing Changed !"
 
+
+
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }
