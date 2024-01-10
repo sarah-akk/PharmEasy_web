@@ -34,13 +34,18 @@ class _HomePageDesktopState extends State<HomePageDesktop> {
 
   @override
   void initState() {
-    super.initState();
+
+      super.initState();
     orders2023 = Provider.of<Orders>(context, listen: false).fetchOrdersreport();
     salesReport = Provider.of<Orders>(context, listen: false).fetchSalesreport();
+    Provider.of<Orders>(context, listen: false).fetchOrders();
+
   }
+
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Row(
         children: [
@@ -92,7 +97,8 @@ class _HomePageDesktopState extends State<HomePageDesktop> {
                                       fontWeight: FontWeight.w900,
                                     ),
                                   ),
-                                  SizedBox(height: 20),
+                                  SizedBox(height: 25),
+                                  Divider(),
                                   FutureBuilder<List<OrderDetails>>(
                                     future: orders2023,
                                     builder: (context, snapshot) {
@@ -180,7 +186,7 @@ class _ReportItemState extends State<ReportItem> {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(widget.title,
-        style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold),),
+        style: TextStyle(color: Colors.indigoAccent, fontWeight: FontWeight.bold,fontSize:25 ),),
       onTap: () {
         _showReportDetails(context);
       },
@@ -214,21 +220,23 @@ class _ReportItemState extends State<ReportItem> {
                       Text('${LocaleKeys.Order_Status.tr()}: ${orderDetails.status}'),
                       Text('${LocaleKeys.paidstatuse.tr()}: ${orderDetails.paidStatus == 1
                           ? '${LocaleKeys.Paid.tr()}'
-                          : '${LocaleKeys.Not_Paid.tr()}'}'),
+                          : '${LocaleKeys.Not_Paid.tr()}'}',
+                      style: TextStyle(color: orderDetails.paidStatus == 1 ? Colors.green : Colors.red),),
                       Text('${LocaleKeys.Created_At.tr()}: ${orderDetails.createdAt.toString()}'),
                       Text('${LocaleKeys.Updated_At.tr()}: ${orderDetails.updatedAt.toString()}'),
                       if (orderDetails.totalPrice != null)
-                        Text('${LocaleKeys.Total_Price.tr()}: ${orderDetails.totalPrice
+                        Text('${LocaleKeys.Total_Price.tr()}: \$${orderDetails.totalPrice
                             .toString()}'),
                     ],
                   ),
                 ),
-              // Additional information for total orders and total price
+              if (widget.title=="Sales Report in 2023" || widget.title=="اجمالي المبيعات عام 2023" )
               ListTile(
                 title: Text('${LocaleKeys.Where_was_the_total_number_of_orders.tr()}: ${calculateTotalOrders(
                     widget.orderDetailsList)}',style: TextStyle(color: Colors.indigo,fontWeight: FontWeight.bold)),
               ),
-              ListTile(
+              if (widget.title=="Sales Report in 2023" || widget.title=="اجمالي المبيعات عام 2023" )
+                ListTile(
                 title: Text('${LocaleKeys.and_The_total_profit_of_FarmEasy_was.tr()} : \$${calculateTotalPrice(
                     widget.orderDetailsList).toStringAsFixed(2)}',style: TextStyle(color: Colors.indigo,fontWeight: FontWeight.bold)),
               ),

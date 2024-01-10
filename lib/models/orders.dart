@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'dart:convert';
 import '../warehouse_owner_screens/Dashboard.dart';
 import 'cart.dart';
@@ -31,6 +32,7 @@ class Orders with ChangeNotifier {
   List<OrderItem> oorders = [];
   final String? authtoken;
   final String? userid;
+  bool newnoti=false;
 
   Orders(this.authtoken, this.userid, this.oorders) {
     notifyListeners();
@@ -42,10 +44,21 @@ class Orders with ChangeNotifier {
     return [...oorders];
   }
 
-  int  get orderslenght {
-    return [...oorders].length;
+
+  bool get notii{
+    return newnoti;
   }
 
+
+
+  String _notifications = '';
+
+  String get notifications => _notifications;
+
+  void addNotification(String notification) {
+    _notifications = notification;
+    notifyListeners();
+  }
 
   double calculateTotalAmount(List<CartItem> products) {
     return products.fold(
@@ -55,6 +68,13 @@ class Orders with ChangeNotifier {
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   Future<void> fetchOrders() async {
+    int orderslenth=0;
+    newnoti=false;
+    if(orders.length==0)
+       orderslenth = 100000;
+    else
+       orderslenth = orders.length;
+
     var url = Uri.parse('http://127.0.0.1:8000/api/viewAdmin');
 
     final response = await http.get(url, headers: {
@@ -93,7 +113,14 @@ class Orders with ChangeNotifier {
         ));
       });
 
+      if(orderslenth<loadedOrders.length)
+      {
+        addNotification('there are new orders !');
+        newnoti=true;
+      }
+
       oorders = loadedOrders.reversed.toList();
+      orderslenth = oorders.length;
       print(oorders);
       notifyListeners();
     }

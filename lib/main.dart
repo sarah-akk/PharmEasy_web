@@ -16,7 +16,8 @@ import 'warehouse_owner_screens/web_auth_screen.dart';
 Future <void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  runApp(EasyLocalization(
+  runApp(
+      EasyLocalization(
       path: 'assets/Lang',
       supportedLocales: [
         Locale('en'),
@@ -24,7 +25,8 @@ Future <void> main() async{
       ],
       fallbackLocale: Locale('en'),
       assetLoader: CodegenLoader(),
-      child: MyApp())
+      child: MyApp()
+      )
   );
 }
 class MyApp extends StatelessWidget {
@@ -34,7 +36,6 @@ class MyApp extends StatelessWidget {
     return
       MultiProvider(
           providers: [
-
             ChangeNotifierProvider(create: (_) => Auth()),
 
             ChangeNotifierProxyProvider<Auth, MedicinesList>(

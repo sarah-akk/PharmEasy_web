@@ -62,5 +62,8 @@ abstract class  LocaleKeys {
   static const Where_was_the_total_number_of_orders = 'Where_was_the_total_number_of_orders';
   static const and_The_total_profit_of_FarmEasy_was = 'and_The_total_profit_of_FarmEasy_was';
   static const paidstatuse = 'paidstatuse';
+  static const neworders = 'neworders';
+  static const NothingChanged = 'NothingChanged';
+
 
 }

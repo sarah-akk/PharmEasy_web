@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 class MedicinesList with ChangeNotifier {
 
-  int id=0;
+  int id = 0;
   List<Medicine> medicines = [];
   bool _isLoading = false;
 
@@ -17,18 +17,17 @@ class MedicinesList with ChangeNotifier {
   final String? authToken;
   final String? userId;
 
-  MedicinesList(this.authToken,this.userId,this.medicines){
+  MedicinesList(this.authToken, this.userId, this.medicines) {
     notifyListeners();
   }
+
   notifyListeners();
 
   List<Medicine> get items {
-
     return [...medicines];
   }
 
   int get itemslenght {
-
     return [...medicines].length;
   }
 
@@ -39,15 +38,14 @@ class MedicinesList with ChangeNotifier {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   Future<void> fetchMedicines(int categoryNumber) async {
-
     print('categoryNumber : ${categoryNumber}');
     print('aa$authToken');
 
-    if(categoryNumber == 0) {
+    if (categoryNumber == 0) {
       var url = Uri.parse('http://127.0.0.1:8000/api/showAll');
       try {
         final response = await http.get(
-          url,  headers: {
+          url, headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $authToken',
         },
@@ -79,48 +77,48 @@ class MedicinesList with ChangeNotifier {
         throw (error);
       }
     }
-    else
-      {
-        var url = Uri.parse('http://127.0.0.1:8000/api/medicines_category_Id/$categoryNumber');
+    else {
+      var url = Uri.parse(
+          'http://127.0.0.1:8000/api/medicines_category_Id/$categoryNumber');
 
-        try {
-          final response = await http.get(
-            url,   headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer $authToken',
-          },
+      try {
+        final response = await http.get(
+          url, headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $authToken',
+        },
+        );
+        Map<String, dynamic> jsonDataMap = json.decode(response.body);
+        List<dynamic> data = jsonDataMap['data'];
+
+        List<Medicine> medicinesData = data.map((medData) {
+          return Medicine(
+            id: medData['id'],
+            scientificName: medData['scientific_name'],
+            commercialName: medData['commercial_name'],
+            category: (medData['category_id']),
+            manufacturer: medData['manufacture_company'],
+            quantityAvailable: medData['available_quantity'],
+            expiryDate: medData['expiration_date'],
+            price: medData['price'],
+            imageUrl: medData['photo'],
+            isfavorate: false,
           );
-          Map<String, dynamic> jsonDataMap = json.decode(response.body);
-          List<dynamic> data = jsonDataMap['data'];
+        }).toList();
 
-          List<Medicine> medicinesData = data.map((medData) {
-            return Medicine(
-              id: medData['id'],
-              scientificName: medData['scientific_name'],
-              commercialName: medData['commercial_name'],
-              category:(medData['category_id']),
-              manufacturer: medData['manufacture_company'],
-              quantityAvailable: medData['available_quantity'],
-              expiryDate: medData['expiration_date'],
-              price: medData['price'],
-              imageUrl: medData['photo'],
-              isfavorate: false,
-            );
-          }).toList();
-
-          print('medicinesData lenght : ${medicinesData.length}');
-          medicines = medicinesData;
-          notifyListeners();
-        } catch (error) {
-          throw (error);
-        }
+        print('medicinesData lenght : ${medicinesData.length}');
+        medicines = medicinesData;
+        notifyListeners();
+      } catch (error) {
+        throw (error);
       }
+    }
   }
+
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
   Future<void> addMedicine(Medicine medicine) async {
-
     print('ss$authToken');
 
     var url = Uri.parse('http://127.0.0.1:8000/api/store');
@@ -130,38 +128,38 @@ class MedicinesList with ChangeNotifier {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $authToken',
         },
-          body: json.encode(
-          {
-            'scientific_name': medicine.scientificName,
-            'commercial_name' : medicine.commercialName,
-            'category_id': medicine.category,
-            'manufacture_company': medicine.manufacturer,
-            'available_quantity' : medicine.quantityAvailable,
-            'expiration_date': medicine.expiryDate,
-            'price' : medicine.price,
-            'photo':medicine.imageUrl,
-          }
-      ),
+        body: json.encode(
+            {
+              'scientific_name': medicine.scientificName,
+              'commercial_name': medicine.commercialName,
+              'category_id': medicine.category,
+              'manufacture_company': medicine.manufacturer,
+              'available_quantity': medicine.quantityAvailable,
+              'expiration_date': medicine.expiryDate,
+              'price': medicine.price,
+              'photo': medicine.imageUrl,
+            }
+        ),
       );
       print(response.body);
-    // print(response.statusCode);
-    // print(response.body);
-    final newMedicine = Medicine(
-        id:id++,
-        scientificName : medicine.scientificName,
-        commercialName : medicine.commercialName,
+      // print(response.statusCode);
+      // print(response.body);
+      final newMedicine = Medicine(
+        id: id++,
+        scientificName: medicine.scientificName,
+        commercialName: medicine.commercialName,
         category: medicine.category,
         quantityAvailable: medicine.quantityAvailable,
         manufacturer: medicine.manufacturer,
         expiryDate: medicine.expiryDate,
-        price : medicine.price,
-        imageUrl:medicine.imageUrl,
-        isfavorate:false,
+        price: medicine.price,
+        imageUrl: medicine.imageUrl,
+        isfavorate: false,
       );
       medicines.add(newMedicine);
       notifyListeners();
     }
-    catch(error){
+    catch (error) {
       print(error);
       throw error;
     }
@@ -169,53 +167,76 @@ class MedicinesList with ChangeNotifier {
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Future<void> getSearch(String searchQuery) async {
+  Future<void> getSearch(String searchQuery) async {
+    print(searchQuery);
+    var url = Uri.parse('http://127.0.0.1:8000/api/search');
 
-  print(searchQuery);
-  var url = Uri.parse(
-      'http://127.0.0.1:8000/api/search');
-  try {
-    final response = await http.post(
-        url,   headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $authToken',
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $authToken',
         },
-        body: json.encode(
-            {
-              'name': searchQuery,
-            }
-        )
-    );
-    if (response.statusCode == 200) {
-      Map<String, dynamic> jsonDataMap = json.decode(response.body);
-      if (jsonDataMap['data'] != null &&
-          jsonDataMap['data'] is Map<String, dynamic>) {
-        Map<String, dynamic> data = jsonDataMap['data'];
+        body: json.encode({
+          'name': searchQuery,
+        }),
+      );
 
-        Medicine medicine = Medicine(
-          id: data['id'],
-          scientificName: data['scientific_name'],
-          commercialName: data['commercial_name'],
-          category: data['category_id'],
-          manufacturer: data['manufacture_company'],
-          quantityAvailable: data['available_quantity'].toDouble(),
-          expiryDate: data['expiration_date'],
-          price: data['price'].toDouble(),
-          imageUrl: data['photo'],
-          isfavorate: data['favorite'] == 1,
-        );
-       print(medicine);
-        medicines.clear();
-        medicines.add(medicine);
-        _isLoading = false;
-        notifyListeners();
+      if (response.statusCode == 200) {
+        Map<String, dynamic> jsonDataMap = json.decode(response.body);
+
+        if (jsonDataMap['data'] != null) {
+          if (jsonDataMap['data'] is Map<String, dynamic>) {
+            // Single medicine case
+            Map<String, dynamic> data = jsonDataMap['data'];
+
+            Medicine medicine = Medicine(
+              id: data['id'],
+              scientificName: data['scientific_name'],
+              commercialName: data['commercial_name'],
+              category: data['category_id'],
+              manufacturer: data['manufacture_company'],
+              quantityAvailable: data['available_quantity'].toDouble(),
+              expiryDate: data['expiration_date'],
+              price: data['price'].toDouble(),
+              imageUrl: data['photo'],
+              isfavorate: data['favorite'] == 1,
+            );
+
+            medicines.clear();
+            medicines.add(medicine);
+          } else if (jsonDataMap['data'] is List<dynamic>) {
+            // List of medicines case
+            List<dynamic> data = jsonDataMap['data'];
+
+            List<Medicine> medicineList = data.map((medData) {
+              return Medicine(
+                id: medData['id'],
+                scientificName: medData['scientific_name'],
+                commercialName: medData['commercial_name'],
+                category: medData['category_id'],
+                manufacturer: medData['manufacture_company'],
+                quantityAvailable: medData['available_quantity'].toDouble(),
+                expiryDate: medData['expiration_date'],
+                price: medData['price'].toDouble(),
+                imageUrl: medData['photo'],
+                isfavorate: medData['favorite'] == 1,
+              );
+            }).toList();
+
+            medicines.clear();
+            medicines.addAll(medicineList);
+          }
+
+          _isLoading = false;
+          notifyListeners();
+        }
       }
+    } catch (error) {
+      throw (error);
     }
   }
-  catch (error) {
-    throw (error);
-  }
-}
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //   Future<void> fetchAndSetMedicines([bool filterByUser = false]) async {

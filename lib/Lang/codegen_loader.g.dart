@@ -75,13 +75,16 @@ class CodegenLoader extends AssetLoader{
   "Updated_At": "تم التعديل بتاريخ",
   "Where_was_the_total_number_of_orders": "وكان العدد الإجمالي للطلبات",
   "and_The_total_profit_of_FarmEasy_was": "وكان إجمالي ربح FarmEasy هو",
-  "paidstatuse": "حالة الدفع"
+  "paidstatuse": "حالة الدفع",
+  "neworders": "هناك طلبيات جديدة !",
+    "NothingChanged":"ليست هناك تحديثات !"
+
 };
 static const Map<String,dynamic> en = {
   "dashboard": "dashboard",
   "Reports": "Reports",
   "Orders_in_2023": "Orders in 2023",
-  "Sales_Report": "Sales Report",
+  "Sales_Report": "Sales Report in 2023",
   "Revenue": "Revenue",
   "Revenue_this_month": "Revenue this month",
   "Products": "Products",
@@ -138,7 +141,10 @@ static const Map<String,dynamic> en = {
   "Updated_At": "Updated At",
   "Where_was_the_total_number_of_orders": "Were was the total number of orders",
   "and_The_total_profit_of_FarmEasy_was": "and The total profit of FarmEasy was",
-  "paidstatuse": "Paid Status"
+  "paidstatuse": "Paid Status",
+  "neworders": "there are new orders !",
+  "NothingChanged":"Nothing Changed !"
+
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

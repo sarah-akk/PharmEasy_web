@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_warehouse/Lang/Locale_keys_.g.dart';
+import 'package:medicine_warehouse/models/orders.dart';
 import 'package:provider/provider.dart';
+
 
 class TopBar extends StatefulWidget {
   @override
@@ -10,12 +12,28 @@ class TopBar extends StatefulWidget {
 
 class _TopBarState extends State<TopBar> {
 
+  bool hasNewNotifications = false; // Track whether there are new notifications
+
   void _changeLanguage(String languageCode) {
     context.setLocale(Locale(languageCode));
   }
 
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero).then((_) async {
+      await Provider.of<Orders>(context, listen: false).fetchOrders();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    String notificationManager = Provider
+        .of<Orders>(context)
+        .notifications;
+    hasNewNotifications = Provider
+        .of<Orders>(context)
+        .notii;
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -37,28 +55,34 @@ class _TopBarState extends State<TopBar> {
                 children: [
                   TextButton.icon(
                     icon: Icon(Icons.notifications_sharp),
-                    label: Text(LocaleKeys.Notifications.tr(),style: TextStyle(fontSize: 20),),
-                    onPressed: () {},
+                    label: Text(LocaleKeys.Notifications.tr(),
+                      style: TextStyle(fontSize: 20),),
+                    onPressed: () {
+                      _showNotificationsList(context, notificationManager);
+                      hasNewNotifications = false;
+                    },
                   ),
-                  Positioned(
-                    top: 4,
-                    left: 9,
-                    child: Container(
-                      width: 12,
-                      height: 12,
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(20),
+                  if (hasNewNotifications) // Show red mark if there are new notifications
+                    Positioned(
+                      top: 4,
+                      left: 9,
+                      child: Container(
+                        width: 12,
+                        height: 12,
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                       ),
                     ),
-                  )
                 ],
               ),
               SizedBox(
                 width: 20,
               ),
               PopupMenuButton<int>(
-                itemBuilder: (context) => [
+                itemBuilder: (context) =>
+                [
                   PopupMenuItem(
                     value: 1,
                     child: Row(
@@ -115,7 +139,8 @@ class _TopBarState extends State<TopBar> {
                   ),
                 ],
               ),
-              Text(LocaleKeys.settings.tr(),style: TextStyle(color: Colors.lightBlue,fontSize: 20),),
+              Text(LocaleKeys.settings.tr(),
+                style: TextStyle(color: Colors.lightBlue, fontSize: 20),),
               SizedBox(
                 width: 20,
               ),
@@ -126,3 +151,70 @@ class _TopBarState extends State<TopBar> {
     );
   }
 }
+
+void _showNotificationsList(BuildContext context, String notifications) {
+  if (notifications == '' || notifications.isEmpty) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            LocaleKeys.Notifications.tr(),
+            style: TextStyle(color: Colors.pink, fontWeight: FontWeight.bold),
+          ),
+          content: Text(
+            LocaleKeys.NothingChanged.tr(),
+            style: TextStyle(color: Colors.black),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(LocaleKeys.Close.tr()),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
+  } else {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Center(
+          child: AlertDialog(
+            title: Text(LocaleKeys.Notifications.tr(), style: TextStyle(
+                color: Colors.pink, fontWeight: FontWeight.bold),),
+            content: Container(
+              width: 300,
+              height: 500, // Adjust the width as needed
+              child: Column(
+                  children:[
+                    ListTile(
+                      title: Text(
+                        LocaleKeys.neworders.tr(),
+                        style:  TextStyle(color: Colors
+                            .blue
+                        ),
+                      ),
+                    ),
+                  ]
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text(LocaleKeys.Close.tr()),
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+
+

@@ -112,7 +112,7 @@ SizedBox(height: 40,),
 
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 5,
-                  childAspectRatio: 3 / 2,
+                  childAspectRatio: 2 / 1.5,
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 20,
                 ),

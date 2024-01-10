@@ -5,6 +5,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:medicine_warehouse/Lang/Locale_keys_.g.dart';
 import 'package:provider/provider.dart';
 import '../models/medicines.dart';
+import '../models/orders.dart';
 import '../warehouse_owner_widgets/medicine_gride.dart';
 import '../warehouse_owner_widgets/drawer.dart';
 import 'add_medicine.dart';
@@ -30,8 +31,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
   void initState() {
     super.initState();
-    // Add a listener to _searchController
-    _searchController.addListener(_onSearchTextChanged);
+      _searchController.addListener(_onSearchTextChanged);
   }
 
   // Listener callback

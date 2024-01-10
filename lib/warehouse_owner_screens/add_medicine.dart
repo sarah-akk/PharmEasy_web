@@ -6,6 +6,7 @@ import 'package:medicine_warehouse/models/medicines.dart';
 import 'package:medicine_warehouse/warehouse_owner_widgets/page_header.dart';
 import 'package:medicine_warehouse/warehouse_owner_widgets/top_bar.dart';
 import 'package:provider/provider.dart';
+import '../models/orders.dart';
 import 'products_screen.dart';
 import '../warehouse_owner_widgets/drawer.dart';
 
@@ -99,6 +100,7 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
     });
     Navigator.of(context).pushReplacementNamed(ProductsScreen.routeName);
   }
+
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
