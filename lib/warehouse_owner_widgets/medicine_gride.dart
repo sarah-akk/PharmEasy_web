@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:medicine_warehouse/models/medicine.dart';
 import 'package:medicine_warehouse/models/medicines.dart';
 import 'package:provider/provider.dart';
 
@@ -112,7 +111,7 @@ SizedBox(height: 40,),
 
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 5,
-                  childAspectRatio: 2 / 1.5,
+                  childAspectRatio: 2 / 2,
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 20,
                 ),

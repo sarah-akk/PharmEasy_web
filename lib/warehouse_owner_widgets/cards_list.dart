@@ -6,6 +6,7 @@ import 'package:medicine_warehouse/models/orders.dart';
 import 'package:provider/provider.dart';
 
 import '../models/medicine.dart';
+import 'DotLoader.dart';
 import 'card_item.dart';
 
 class CardsList extends StatelessWidget {
@@ -18,7 +19,17 @@ class CardsList extends StatelessWidget {
       ]),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator(); // You can show a loading indicator while fetching data
+          return Container(
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                DotLoader(),  // You can create a custom DotLoader widget for the three dots
+                DotLoader(),
+                DotLoader(),
+              ],
+            ),
+          );
         } else if (snapshot.hasError) {
           return Text('Error loading data');
         } else {
@@ -30,9 +41,7 @@ class CardsList extends StatelessWidget {
 
           double revenue = 0.0;
           for (var order in orders) {
-            for (var medicine in medicines) {
-              revenue += medicine.price * medicine.quantityAvailable;
-            }
+              revenue += order.amount ;
           }
 
           return Container(

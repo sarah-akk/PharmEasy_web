@@ -420,35 +420,38 @@ class _MedicineAddScreenState extends State<MedicineAddScreen> {
                     },
                   ),
                   SizedBox(height: 70),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ElevatedButton(
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        ElevatedButton(
 
-                        onPressed: () {
-                          _saveForm();
-                        },
+                          onPressed: () {
+                            _saveForm();
+                          },
 
-                        child: Text(LocaleKeys.Save.tr(),style: TextStyle(fontSize: 20,color: Colors.white),),
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: Size(130, 40), // Set the width and height
-                          primary: Colors.pink, // Set the background color
-                          // You can also customize other properties like padding, elevation, etc.
+                          child: Text(LocaleKeys.Save.tr(),style: TextStyle(fontSize: 20,color: Colors.white),),
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: Size(130, 40), // Set the width and height
+                            primary: Colors.pink, // Set the background color
+                            // You can also customize other properties like padding, elevation, etc.
+                          ),
                         ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pushReplacementNamed(ProductsScreen.routeName);
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pushReplacementNamed(ProductsScreen.routeName);
 
-                        },
-                        child: Text(LocaleKeys.Cancel.tr(),style: TextStyle(fontSize: 20,color: Colors.white),),
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: Size(130, 40), // Set the width and height
-                          primary: Colors.yellow, // Set the background color
-                          // You can also customize other properties like padding, elevation, etc.
+                          },
+                          child: Text(LocaleKeys.Cancel.tr(),style: TextStyle(fontSize: 20,color: Colors.white),),
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: Size(130, 40), // Set the width and height
+                            primary: Colors.yellow, // Set the background color
+                            // You can also customize other properties like padding, elevation, etc.
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),

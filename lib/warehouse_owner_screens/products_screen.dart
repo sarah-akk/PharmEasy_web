@@ -155,10 +155,11 @@ class _ProductsScreenState extends State<ProductsScreen> {
                             controller: _searchController,
                             decoration: InputDecoration(
                               hintText: LocaleKeys.Search_for_medicines_.tr(),
+                              hintStyle: TextStyle(color: Colors.blueGrey), // Change this line
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                                 borderSide: BorderSide(
-                                  color: Colors.greenAccent,
+                                  color: Colors.blueGrey,
                                   width: 2.0,
                                 ),
                               ),
@@ -200,7 +201,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                            color: Colors.greenAccent,
+                            color: Colors.blueAccent.shade100,
                             borderRadius: BorderRadius.circular(20)),
                         child: IconButton(
                           icon: Icon(Icons.search, color: Colors.black),
